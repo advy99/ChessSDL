@@ -32,7 +32,7 @@ class LoaderParams {
 		int get_y() const;
 		int get_width() const;
 		int get_height() const;
-		std::string get_texture_od() const;
+		std::string get_texture_id() const;
 
 		SDL_RendererFlip get_flip() const;
 		int get_anim_speed() const;
