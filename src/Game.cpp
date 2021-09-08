@@ -13,7 +13,7 @@ void SDL_RendererDeleter :: operator()(SDL_Renderer * renderer) {
 
 
 Game :: Game(const std::string & title, const uint32_t XPOS, const uint32_t YPOS,
-			   const uint32_t WIDTH, const uint32_t HEIGHT, const uint32_t FLAGS) {
+				 const uint32_t WIDTH, const uint32_t HEIGHT, const uint32_t FLAGS) {
 	
 	running_ = true;
 					
@@ -43,11 +43,11 @@ Game :: Game(const std::string & title, const uint32_t XPOS, const uint32_t YPOS
 			} else {
 				SDL_SetRenderDrawColor(renderer_.get(), 0, 0, 0, 255);
 
-				game_state_machine_.reset(new GameStateMachine());
-				input_handler_.reset(new InputHandler());
-				texture_manager_.reset(new TextureManager());
+				game_state_machine_ = GameStateMachine();
+				input_handler_ = InputHandler();
+				texture_manager_ = TextureManager();
 
-				game_state_machine_->change_state(std::make_unique<MainMenuState>());
+				game_state_machine_.change_state(MainMenuState());
 
 				width_ = WIDTH;
 				height_ = HEIGHT;
@@ -64,7 +64,7 @@ Game :: Game(const std::string & title, const uint32_t XPOS, const uint32_t YPOS
 void Game :: render() {
 	SDL_RenderClear(renderer_.get());
 
-	game_state_machine_->render();
+	game_state_machine_.render();
 
 
 	SDL_RenderPresent(renderer_.get());
@@ -72,11 +72,11 @@ void Game :: render() {
 }
 
 void Game :: update() {
-	game_state_machine_->update();
+	game_state_machine_.update();
 }
 
 void Game :: handle_events() {
-	input_handler_->update();
+	input_handler_.update();
 }
 
 void Game :: running() const noexcept {

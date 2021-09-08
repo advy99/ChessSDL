@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+#include <memory>
 
 #include "InputHandler.hpp"
 #include "GameStateMachine.hpp"
@@ -27,24 +28,22 @@ class Game {
 		std::unique_ptr<SDL_Window, SDL_WindowDeleter> window_;
 		std::unique_ptr<SDL_Renderer, SDL_RendererDeleter> renderer_;
 
-
-	
-		std::unique_ptr<InputHandler> input_handler_;
-		std::unique_ptr<GameStateMachine> game_state_machine_;
-		std::unique_ptr<TextureManager> texture_manager_;
+		InputHandler input_handler_;
+		GameStateMachine game_state_machine_;
+		TextureManager texture_manager_;
 
 		uint32_t current_frame_;
 
 		uint32_t width_;
 		uint32_t height_;
 
-		std::vector< std::unique_ptr<GameObject> > objects_;
+		std::vector< GameObject > objects_;
 
 	public:
-		Game(const std::string & title, const uint32_t XPOS, const uint32_t YPOS,
-			  const uint32_t WIDTH, const uint32_t HEIGHT, const uint32_t FLAGS);
 
-		~Game() = default;
+		Game(const std::string & title, const uint32_t XPOS, const uint32_t YPOS,
+					const uint32_t WIDTH, const uint32_t HEIGHT, const uint32_t FLAGS);
+
 
 		void render();
 		
