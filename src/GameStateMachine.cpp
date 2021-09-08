@@ -43,7 +43,7 @@ void GameStateMachine :: render() {
 	}
 }
 
-bool GameStateMachine :: isChanging() {
+bool GameStateMachine :: is_changing() {
 	return changing;
 }
 
