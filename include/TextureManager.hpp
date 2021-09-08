@@ -25,15 +25,15 @@ class TextureManager {
 					 SDL_Renderer * g_renderer,
 					 const SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-		void drawFrame(const std::string id, const int X, const int Y,
+		void draw_frame(const std::string id, const int X, const int Y,
 							const int WIDTH, const int HEIGHT,
 							const int CURRENT_ROW, const int CURRENT_FRAME,
 							SDL_Renderer * g_renderer,
 							const SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-		void clearFromTextureMap(const std::string id);
+		void clear_from_texture_map(const std::string id);
 
-		void drawTile(const std::string id, const int MARGIN, const int SPACING,
+		void draw_tile(const std::string id, const int MARGIN, const int SPACING,
 						  const int X, const int Y, const int WIDTH, const int HEIGHT,
 						  const int CURRENT_ROW, const int CURRENT_FRAME,
 						  SDL_Renderer * renderer);

@@ -4,7 +4,7 @@
 
 
 TextureManager :: ~TextureManager(){
-	for (auto texture : texture_map_){
+	for (auto & texture : texture_map_){
 		SDL_DestroyTexture(texture.second);
 	}
 
@@ -67,11 +67,11 @@ void TextureManager :: draw(const std::string id, const int X, const int Y,
 }
 
 
-void TextureManager :: drawFrame(const std::string id, const int X, const int Y,
-										 const int WIDTH, const int HEIGHT,
-										 const int CURRENT_ROW, const int CURRENT_FRAME,
-										 SDL_Renderer * g_renderer,
-										 const SDL_RendererFlip FLIP){
+void TextureManager :: draw_frame(const std::string id, const int X, const int Y,
+										 	 const int WIDTH, const int HEIGHT,
+										 	 const int CURRENT_ROW, const int CURRENT_FRAME,
+										 	 SDL_Renderer * g_renderer,
+										 	 const SDL_RendererFlip FLIP){
 	SDL_Rect source_rect;
 	SDL_Rect dest_rect;
 
@@ -89,7 +89,7 @@ void TextureManager :: drawFrame(const std::string id, const int X, const int Y,
 
 }
 
-void TextureManager :: clearFromTextureMap(const std::string id) {
+void TextureManager :: clear_from_texture_map(const std::string id) {
 
 	SDL_DestroyTexture(texture_map_[id]);
 
@@ -99,7 +99,7 @@ void TextureManager :: clearFromTextureMap(const std::string id) {
 
 
 
-void TextureManager :: drawTile(const std::string id, const int MARGIN,
+void TextureManager :: draw_tile(const std::string id, const int MARGIN,
 										const int SPACING, const int X, const int Y,
 										const int WIDTH, const int HEIGHT,
 										const int CURRENT_ROW, const int CURRENT_FRAME,
