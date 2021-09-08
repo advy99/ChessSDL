@@ -1,7 +1,7 @@
 #ifndef GAMESTATEMACHINE_H_INCLUDED
 #define GAMESTATEMACHINE_H_INCLUDED
 
-#include "GameState.h"
+#include "GameState.hpp"
 #include <stack>
 
 class GameStateMachine {

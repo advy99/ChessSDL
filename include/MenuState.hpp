@@ -1,8 +1,8 @@
 #ifndef MENUSTATE_H_INCLUDED
 #define MENUSTATE_H_INCLUDED
 
-#include "GameState.h"
-#include "GameObject.h"
+#include "GameState.hpp"
+#include "GameObject.hpp"
 #include <vector>
 
 class MenuState : public GameState {
