@@ -95,3 +95,12 @@ uint32_t Game :: height() const noexcept {
 	return height_;
 }
 
+void Game :: stop_running () {
+	running_ = false;
+}
+
+void Game :: change_state(const GameState & state) {
+	game_state_machine_.change_state(state);
+}
+
+

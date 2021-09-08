@@ -57,7 +57,9 @@ class Game {
 
 		SDL_Renderer * get_renderer() const;
 
-		void stop_running();
+		static void stop_running();
+
+		static void change_state(const GameState & state);
 
 		uint32_t width() const;
 		uint32_t height() const;
