@@ -30,9 +30,8 @@ void MainMenuState :: render() {
 bool MainMenuState :: on_enter() {
 	bool success = true;
 
-	StateParser parser;
 
-	parser.parse_state("assets/test.xml", menu_id, objects, texture_id_list);
+	StateParser::parse_state("assets/test.xml", menu_id, objects, texture_id_list);
 
 	callbacks.push_back(menu_to_play);
 	callbacks.push_back(exit_from_menu);

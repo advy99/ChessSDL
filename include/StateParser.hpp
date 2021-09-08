@@ -9,13 +9,13 @@
 
 class StateParser {
 	private:
-		void parse_objects(tinyxml2::XMLElement * state,
+		static void parse_objects(tinyxml2::XMLElement * state,
 								std::vector<GameObject> * objects);
-		void parse_textures(tinyxml2::XMLElement * state,
+		static void parse_textures(tinyxml2::XMLElement * state,
 								 std::vector<std::string> * texture_ids);
 
 	public:
-		bool parse_state(const char * state_file, const std::string state_id,
+		static bool parse_state(const char * state_file, const std::string state_id,
 							 std::vector<GameObject> * objects,
 							 std::vector<std::string> * texture_ids);
 
