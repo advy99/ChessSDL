@@ -1,18 +1,15 @@
-#include "TextureManager.hpp"
+#include "Texture.hpp"
 
 #include <iostream>
 
 
-TextureManager :: ~TextureManager(){
-	for (auto & texture : texture_map_){
-		SDL_DestroyTexture(texture.second);
-	}
+Texture :: ~Texture(){
+	SDL_DestroyTexture(texture_);
 
-	texture_map_.clear();
 }
 
 
-bool TextureManager :: load(const std::string file, const std::string id,
+bool Texture :: load(const std::string file, const std::string id,
 									 SDL_Renderer * g_renderer){
 
 	bool success = true;
@@ -26,7 +23,8 @@ bool TextureManager :: load(const std::string file, const std::string id,
 		SDL_FreeSurface(asset_surface);
 
 		if (texture != nullptr){
-			texture_map_[id] = texture;
+			texture_ = texture;
+			texture_id_ = id;
 		} else {
 			std::cerr << "Failed to load texture "  << std::endl;
 			std::cerr << "SDL_Error: " << SDL_GetError() << std::endl;
@@ -45,7 +43,7 @@ bool TextureManager :: load(const std::string file, const std::string id,
 
 
 
-void TextureManager :: draw(const std::string id, const int X, const int Y,
+void Texture :: draw(const int X, const int Y,
 								  const int WIDTH, const int HEIGHT,
 								  SDL_Renderer * g_renderer,
 								  const SDL_RendererFlip FLIP){
@@ -60,14 +58,14 @@ void TextureManager :: draw(const std::string id, const int X, const int Y,
 	dest_rect.x = X;
 	dest_rect.y = Y;
 
-	SDL_RenderCopyEx(g_renderer, texture_map_[id],
+	SDL_RenderCopyEx(g_renderer, texture_,
 						  &source_rect, &dest_rect,
 						  0, 0, FLIP);
 
 }
 
 
-void TextureManager :: draw_frame(const std::string id, const int X, const int Y,
+void Texture :: draw_frame(const int X, const int Y,
 										 	 const int WIDTH, const int HEIGHT,
 										 	 const int CURRENT_ROW, const int CURRENT_FRAME,
 										 	 SDL_Renderer * g_renderer,
@@ -83,23 +81,15 @@ void TextureManager :: draw_frame(const std::string id, const int X, const int Y
 	dest_rect.x = X;
 	dest_rect.y = Y;
 
-	SDL_RenderCopyEx(g_renderer, texture_map_[id],
+	SDL_RenderCopyEx(g_renderer, texture_,
 						  &source_rect, &dest_rect,
 						  0, 0, FLIP);
 
 }
 
-void TextureManager :: clear_from_texture_map(const std::string id) {
-
-	SDL_DestroyTexture(texture_map_[id]);
 
 
-	texture_map_.erase(id);
-}
-
-
-
-void TextureManager :: draw_tile(const std::string id, const int MARGIN,
+void Texture :: draw_tile(, const int MARGIN,
 										const int SPACING, const int X, const int Y,
 										const int WIDTH, const int HEIGHT,
 										const int CURRENT_ROW, const int CURRENT_FRAME,
@@ -115,7 +105,7 @@ void TextureManager :: draw_tile(const std::string id, const int MARGIN,
 	dest_rect.x = X;
 	dest_rect.y = Y;
 
-	SDL_RenderCopyEx(renderer, texture_map_[id], &src_rect, &dest_rect,
+	SDL_RenderCopyEx(renderer, texture_, &src_rect, &dest_rect,
 						  0, 0, SDL_FLIP_NONE);
 }
 

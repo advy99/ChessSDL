@@ -7,14 +7,16 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-class TextureManager {
+class Texture {
 	private:
-		std::map<std::string, SDL_Texture *> texture_map_;
+		std::string texture_id_;
+
+		SDL_Texture * texture_ = nullptr;
 
 
 	public:
 		
-		~TextureManager();
+		~Texture();
 
 
 		bool load(const std::string file, const std::string id,
