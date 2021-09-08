@@ -45,7 +45,7 @@ bool TextureManager :: load(const std::string file, const std::string id,
 
 
 
-void TextureManager::draw(const std::string id, const int X, const int Y,
+void TextureManager :: draw(const std::string id, const int X, const int Y,
 								  const int WIDTH, const int HEIGHT,
 								  SDL_Renderer * g_renderer,
 								  const SDL_RendererFlip FLIP){
@@ -67,7 +67,7 @@ void TextureManager::draw(const std::string id, const int X, const int Y,
 }
 
 
-void TextureManager::drawFrame(const std::string id, const int X, const int Y,
+void TextureManager :: drawFrame(const std::string id, const int X, const int Y,
 										 const int WIDTH, const int HEIGHT,
 										 const int CURRENT_ROW, const int CURRENT_FRAME,
 										 SDL_Renderer * g_renderer,
@@ -89,7 +89,7 @@ void TextureManager::drawFrame(const std::string id, const int X, const int Y,
 
 }
 
-void TextureManager::clearFromTextureMap(const std::string id) {
+void TextureManager :: clearFromTextureMap(const std::string id) {
 
 	SDL_DestroyTexture(texture_map_[id]);
 
@@ -99,7 +99,7 @@ void TextureManager::clearFromTextureMap(const std::string id) {
 
 
 
-void TextureManager::drawTile(const std::string id, const int MARGIN,
+void TextureManager :: drawTile(const std::string id, const int MARGIN,
 										const int SPACING, const int X, const int Y,
 										const int WIDTH, const int HEIGHT,
 										const int CURRENT_ROW, const int CURRENT_FRAME,
