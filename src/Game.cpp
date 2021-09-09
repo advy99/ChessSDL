@@ -103,3 +103,8 @@ void Game :: change_state(const GameState & state) {
 }
 
 
+void Game :: pop_state() {
+	game_state_machine_.pop();
+}
+
+

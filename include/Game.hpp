@@ -61,6 +61,8 @@ class Game {
 
 		static void change_state(const GameState & state);
 
+		static void pop_state();
+
 		static uint32_t width() ;
 		static uint32_t height() ;
 
