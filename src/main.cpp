@@ -8,17 +8,17 @@ const uint32_t DELAY_TIME = 1000.0 / TARGET_FPS;
 
 int main() {
 	
-	Game my_game;
+	Game::init("Titulo", 100, 100, 1024, 768, 0);
 
 	uint32_t frame_start, frame_time;
 
-	while (my_game.is_running()) {
+	while (Game::running()) {
 
 		frame_start = SDL_GetTicks();
 
-		my_game.handle_events();
-		my_game.update();
-		my_game.render();
+		Game::handle_events();
+		Game::update();
+		Game::render();
 
 		frame_time = SDL_GetTicks() - frame_start;
 
