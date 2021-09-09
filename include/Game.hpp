@@ -8,6 +8,7 @@
 
 #include "InputHandler.hpp"
 #include "GameStateMachine.hpp"
+#include "MainMenuState.hpp"
 #include "Texture.hpp"
 
 
@@ -23,46 +24,46 @@ struct SDL_RendererDeleter {
 
 class Game {
 	private: 
-		bool running_;
+		static bool running_;
 
-		std::unique_ptr<SDL_Window, SDL_WindowDeleter> window_;
-		std::unique_ptr<SDL_Renderer, SDL_RendererDeleter> renderer_;
+		static std::unique_ptr<SDL_Window, SDL_WindowDeleter> window_;
+		static std::unique_ptr<SDL_Renderer, SDL_RendererDeleter> renderer_;
 
-		InputHandler input_handler_;
-		GameStateMachine game_state_machine_;
+		static InputHandler input_handler_;
+		static GameStateMachine game_state_machine_;
 
-		uint32_t current_frame_;
+		static uint32_t current_frame_;
 
-		uint32_t width_;
-		uint32_t height_;
+		static uint32_t width_;
+		static uint32_t height_;
 
-		std::vector< GameObject > objects_;
+		static std::vector< GameObject > objects_;
 
 	public:
 
-		Game(const std::string & title, const uint32_t XPOS, const uint32_t YPOS,
+		static void init(const std::string & title, const uint32_t XPOS, const uint32_t YPOS,
 					const uint32_t WIDTH, const uint32_t HEIGHT, const uint32_t FLAGS);
 
 
-		void render();
+		static void render();
 		
-		void draw();
+		static void draw();
 
-		void update();
+		static void update();
 
-		void handle_events();
+		static void handle_events();
 
-		bool running() const noexcept;
+		static bool running();
 
-		SDL_Renderer * get_renderer() const;
+		static SDL_Renderer * get_renderer() ;
 
 		static void stop_running();
 
 		static void change_state(const GameState & state);
 
-		uint32_t width() const;
-		uint32_t height() const;
+		static uint32_t width() ;
+		static uint32_t height() ;
 
-}
+};
 
 #endif

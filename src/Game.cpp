@@ -12,7 +12,7 @@ void SDL_RendererDeleter :: operator()(SDL_Renderer * renderer) {
 }
 
 
-Game :: Game(const std::string & title, const uint32_t XPOS, const uint32_t YPOS,
+void Game :: init(const std::string & title, const uint32_t XPOS, const uint32_t YPOS,
 				 const uint32_t WIDTH, const uint32_t HEIGHT, const uint32_t FLAGS) {
 	
 	running_ = true;
@@ -46,7 +46,7 @@ Game :: Game(const std::string & title, const uint32_t XPOS, const uint32_t YPOS
 				game_state_machine_ = GameStateMachine();
 				input_handler_ = InputHandler();
 
-				game_state_machine_.change_state(MainMenuState());
+				game_state_machine_.change(MainMenuState());
 
 				width_ = WIDTH;
 				height_ = HEIGHT;
@@ -78,19 +78,19 @@ void Game :: handle_events() {
 	input_handler_.update();
 }
 
-void Game :: running() const noexcept {
+bool Game :: running() {
 	return running_;
 }
 
-SDL_Renderer * Game :: get_renderer() const {
+SDL_Renderer * Game :: get_renderer()  {
 	return renderer_.get();
 }
 
-uint32_t Game :: width() const noexcept {
+uint32_t Game :: width() {
 	return width_;
 }
 
-uint32_t Game :: height() const noexcept {
+uint32_t Game :: height() {
 	return height_;
 }
 
@@ -99,7 +99,7 @@ void Game :: stop_running () {
 }
 
 void Game :: change_state(const GameState & state) {
-	game_state_machine_.change_state(state);
+	game_state_machine_.change(state);
 }
 
 
