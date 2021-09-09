@@ -31,12 +31,12 @@ bool MainMenuState :: on_enter() {
 	bool success = true;
 
 
-	StateParser::parse_state("assets/test.xml", menu_id, objects, texture_id_list);
+	StateParser::parse_state("assets/test.xml", menu_id_, objects_);
 
-	callbacks.push_back(menu_to_play);
-	callbacks.push_back(exit_from_menu);
+	callbacks_.push_back(menu_to_play);
+	callbacks_.push_back(exit_from_menu);
 
-	set_callbacks(callbacks);
+	set_callbacks(callbacks_);
 
 	return success;
 
@@ -44,11 +44,11 @@ bool MainMenuState :: on_enter() {
 
 
 std::string MainMenuState::get_state_id() const {
-	return menu_id;
+	return menu_id_;
 }
 
 
-void MainMenuState::menuToPlay() {
+void MainMenuState::menu_to_play() {
 	std::cout << "Clicked Play button" << std::endl;
 
 	Game::change_state(PlayState());
@@ -62,14 +62,14 @@ void MainMenuState::exit_from_menu() {
 
 
 void MainMenuState::set_callbacks(const std::vector<Callback> & callbacks) {
-	for ( unsigned i = 0; i < objects.size(); i++ ) {
-		MenuButton * button = dynamic_cast<MenuButton*> (objects[i]) ;
+	for ( unsigned i = 0; i < objects_.size(); i++ ) {
+		MenuButton * button = dynamic_cast<MenuButton*> (&objects_[i]) ;
 		if ( button != nullptr ) {
-			button->setCallback(callbacks[button->getCallbackID() ]);
+			button->set_callback(callbacks[button->get_callback_id() ]);
 		}
 	}
 }
 
 
 
-const std::string MainMenuState::menu_id = "MENU";
+const std::string MainMenuState::menu_id_ = "MENU";

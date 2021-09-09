@@ -7,7 +7,7 @@
 
 class MainMenuState : public MenuState {
 	private:
-		static const std::string menu_id;
+		static const std::string menu_id_;
 
 
 		static void menu_to_play();
