@@ -4,6 +4,7 @@
 #include "MenuButton.hpp"
 #include <iostream>
 #include "StateParser.hpp"
+#include "PlayState.hpp"
 
 MainMenuState::~MainMenuState() {
 
