@@ -45,10 +45,11 @@ void SDLGameObject::load(const LoaderParams * params) {
 	acceleration_ = Vector2D(0, 0);
 	width_ = params->get_width();
 	height_ = params->get_height();
-	texture_id_ = params->get_texture_id();
 	current_frame_ = 1;
 	current_row_ = 1;
 	num_frames_ = params->get_num_frames();
 	last_flip_ = params->get_flip();
+
+	texture_.load(params->get_texture_path(), params->get_texture_id(), Game::get_renderer());	
 
 }

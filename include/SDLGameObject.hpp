@@ -25,8 +25,6 @@ class SDLGameObject : public GameObject{
 
 		SDL_RendererFlip last_flip_;
 
-		std::string texture_id_;
-
 		int num_frames_;
 
 		Texture texture_;
