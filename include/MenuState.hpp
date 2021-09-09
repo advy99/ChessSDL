@@ -8,8 +8,8 @@
 class MenuState : public GameState {
 	protected:
 		typedef void(*Callback)();
-		virtual void setCallbacks(const std::vector<Callback> & callbacks) = 0;
-		std::vector<Callback> callbacks;
+		virtual void set_callbacks(const std::vector<Callback> & callbacks) = 0;
+		std::vector<Callback> callbacks_;
 };
 
 
