@@ -10,7 +10,7 @@ void GameStateMachine :: push(const GameState & state) {
 void GameStateMachine :: change(const GameState & state) {
 
 	if ( !game_states_.empty() ) {
-		if ( game_states_.top().get_state_id() != state_->get_state_id() ){
+		if ( game_states_.top().get_state_id() != state->get_state_id() ){
 			pop();
 			push(state);
 		}
