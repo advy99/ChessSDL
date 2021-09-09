@@ -5,6 +5,7 @@
 #include "GameObject.hpp"
 #include "LoaderParams.hpp"
 #include "Vector2D.hpp"
+#include "Texture.hpp"
 
 #include "SDL2/SDL.h"
 
@@ -27,6 +28,8 @@ class SDLGameObject : public GameObject{
 		std::string texture_id_;
 
 		int num_frames_;
+
+		Texture texture_;
 
 	public:
 		//virtual void load(const int X, const int Y, const int WIDTH, const int HEIGHT,
