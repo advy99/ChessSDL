@@ -58,6 +58,6 @@ int MenuButton::get_callback_id() const {
 
 
 
-GameObject MenuButtonCreator::create_game_object() const {
+/* GameObject MenuButtonCreator::create_game_object() const {
 	return MenuButton();
-}
+} */
