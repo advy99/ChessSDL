@@ -1,8 +1,8 @@
 #ifndef MENUBUTTON_H_INCLUDED
 #define MENUBUTTON_H_INCLUDED
 
-#include "SDLGameObject.h"
-#include "GameObjectFactory.hpp"
+#include "SDLGameObject.hpp"
+// #include "GameObjectFactory.hpp"
 
 class MenuButton : public SDLGameObject {
 	private:
@@ -30,11 +30,11 @@ class MenuButton : public SDLGameObject {
 };
 
 
-class MenuButtonCreator : public BaseCreator {
+/* class MenuButtonCreator : public BaseCreator {
 
 	public:
 		GameObject create_game_object() const;
 
-};
+}; */
 
 #endif
