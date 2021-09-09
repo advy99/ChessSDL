@@ -12,7 +12,7 @@ class MenuButton : public SDLGameObject {
 			CLICKED = 2
 		};
 
-		void (*callback) ();
+		void (*callback_) ();
 		int callback_id_;
 
 		bool button_released_;
