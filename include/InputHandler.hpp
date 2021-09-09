@@ -37,18 +37,20 @@ class InputHandler {
 
 	public:
 
+		~InputHandler();
+
 		static void update();
 
 		static void initialise_joysticks();
-		static bool joysticks_initialised() const;
+		static bool joysticks_initialised();
 
-		static int x_value(const int joy, const int stick) const;
-		static int y_value(const int joy, const int stick) const;
-		static bool get_button_state(const int joy, const int button_number) const;
-		static bool get_mouse_button_state(const int button) const;
+		static int x_value(const int joy, const int stick) ;
+		static int y_value(const int joy, const int stick) ;
+		static bool get_button_state(const int joy, const int button_number) ;
+		static bool get_mouse_button_state(const mouse_buttons button) ;
 
-		static Vector2D get_mouse_position() const;
-		static bool is_key_down(const SDL_Scancode key) const;
+		static Vector2D get_mouse_position() ;
+		static bool is_key_down(const SDL_Scancode key) ;
 
 		static void reset();
 

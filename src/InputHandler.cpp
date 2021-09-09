@@ -2,25 +2,16 @@
 #include <iostream>
 #include "Game.hpp"
 
-InputHandler :: InputHandler() {
-	joysticks_initialised_ = false;
-
-	mouse_button_states_ = std::vector<bool>(3, false);
-
-	mouse_position_ = Vector2D(0, 0);
-	key_state_ = nullptr;
-}
-
 InputHandler :: ~InputHandler(){
-	while (!joysticks.empty()){
-		SDL_JoystickClose(joysticks.back());
-		joysticks.pop_back();
+	while (!joysticks_.empty()){
+		SDL_JoystickClose(joysticks_.back());
+		joysticks_.pop_back();
 	}
 
 
 }
 
-bool InputHandler :: joysticks_initialised() const {
+bool InputHandler :: joysticks_initialised()  {
 	return joysticks_initialised_;
 }
 
@@ -33,7 +24,7 @@ void InputHandler :: update(){
 		key_state_ = const_cast <Uint8*> ( SDL_GetKeyboardState( nullptr ) );
 
 		if (event.type == SDL_QUIT){
-			Game::quit();
+			Game::stop_running();
 		} else if ( event.type == SDL_JOYAXISMOTION ) {
 			on_joystick_axis_move(event);
 
@@ -123,7 +114,7 @@ void InputHandler :: initialise_joysticks(){
 
 	}
 
-	joysticks_initialised_ = !joysticks.empty();
+	joysticks_initialised_ = !joysticks_.empty();
 
 	if (joysticks_initialised_){
 		SDL_JoystickEventState(SDL_ENABLE);
@@ -133,7 +124,7 @@ void InputHandler :: initialise_joysticks(){
 }
 
 
-int InputHandler :: x_value(const int joy, const int stick) const{
+int InputHandler :: x_value(const int joy, const int stick) {
 	int valor = 0;
 
 	if ( !joystick_values_.empty() ){
@@ -148,7 +139,7 @@ int InputHandler :: x_value(const int joy, const int stick) const{
 	return valor;
 }
 
-int InputHandler :: y_value(const int joy, const int stick) const{
+int InputHandler :: y_value(const int joy, const int stick) {
 	int valor = 0;
 
 	if ( !joystick_values_.empty() ){
@@ -164,19 +155,19 @@ int InputHandler :: y_value(const int joy, const int stick) const{
 }
 
 
-bool InputHandler :: get_button_state(const int joy, const int button_number)const{
+bool InputHandler :: get_button_state(const int joy, const int button_number){
 	return button_states_[joy][button_number];
 }
 
-bool InputHandler :: get_mouse_button_state(const int button) const {
-	return mouse_button_states_[button];
+bool InputHandler :: get_mouse_button_state(const mouse_buttons button)  {
+	return mouse_button_states_[static_cast<unsigned int>(button)];
 }
 
-Vector2D InputHandler :: get_mouse_position() const {
+Vector2D InputHandler :: get_mouse_position()  {
 	return mouse_position_;
 }
 
-bool InputHandler :: is_key_down(const SDL_Scancode key) const {
+bool InputHandler :: is_key_down(const SDL_Scancode key)  {
 	bool is_down = false;
 
 	if (key_state_ != nullptr){
@@ -188,7 +179,7 @@ bool InputHandler :: is_key_down(const SDL_Scancode key) const {
 
 }
 
-void InputHandler::onJoystickAxisMove(const SDL_Event event){
+void InputHandler::on_joystick_axis_move(const SDL_Event event){
 
 	int which_one = event.jaxis.which;
 
@@ -204,7 +195,7 @@ void InputHandler::onJoystickAxisMove(const SDL_Event event){
 
 		if ( event.jaxis.value > joystick_dead_zone_ ){
 			joystick_values_[which_one].first.set_y(1);
-		} else if ( event.jaxis.value < -joystick_dead_zone ){
+		} else if ( event.jaxis.value < -joystick_dead_zone_ ){
 			joystick_values_[which_one].first.set_y(-1);
 		} else {
 			joystick_values_[which_one].first.set_y(0);
@@ -234,4 +225,14 @@ void InputHandler::onJoystickAxisMove(const SDL_Event event){
 void InputHandler :: reset(){
 	mouse_button_states_ = std::vector<bool>(3, false);
 }
+
+bool InputHandler :: joysticks_initialised_ = false;
+std::vector<SDL_Joystick *> InputHandler :: joysticks_;
+std::vector<std::pair<Vector2D , Vector2D > > InputHandler :: joystick_values_;
+std::vector<std::vector<bool> > InputHandler :: button_states_;
+
+std::vector<bool> InputHandler :: mouse_button_states_;
+
+Vector2D InputHandler :: mouse_position_ = Vector2D(0, 0);
+Uint8 * InputHandler :: key_state_ = nullptr;
 
