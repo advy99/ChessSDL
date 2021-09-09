@@ -15,6 +15,7 @@ class LoaderParams {
 		int height_;
 
 		std::string texture_id_;
+		std::string texture_path_;
 
 		int num_frames_;
 		int callback_id_;
@@ -24,7 +25,7 @@ class LoaderParams {
 
 	public:
 		LoaderParams(const int X, const int Y, const int WIDTH, const int HEIGHT,
-						 const std::string id, const int NUM_FRAMES,
+						 const std::string & id, const std::string & path, const int NUM_FRAMES,
 						 const int CALLBACK_ID = 0, const int ANIM_SPEED = 0,
 						 const SDL_RendererFlip flip = SDL_FLIP_NONE);
 
@@ -33,6 +34,7 @@ class LoaderParams {
 		int get_width() const;
 		int get_height() const;
 		std::string get_texture_id() const;
+		std::string get_texture_path() const;
 
 		SDL_RendererFlip get_flip() const;
 		int get_anim_speed() const;
