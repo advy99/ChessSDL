@@ -10,7 +10,7 @@ void GameStateMachine :: push(const GameState & state) {
 void GameStateMachine :: change(const GameState & state) {
 
 	if ( !game_states_.empty() ) {
-		if ( game_states_.top().get_state_id() != state->get_state_id() ){
+		if ( game_states_.top().get_state_id() != state.get_state_id() ){
 			pop();
 			push(state);
 		}
@@ -18,7 +18,7 @@ void GameStateMachine :: change(const GameState & state) {
 		push(state);
 	}
 
-	changing = true;
+	changing_ = true;
 
 }
 
@@ -33,19 +33,19 @@ void GameStateMachine :: pop() {
 void GameStateMachine :: update() {
 	changing_ = false;
 	if ( !game_states_.empty() ) {
-		game_states.top().update();
+		game_states_.top().update();
 	}
 }
 
 void GameStateMachine :: render() {
-	if ( !game_states.empty() ) {
-		game_states.top().render();
+	if ( !game_states_.empty() ) {
+		game_states_.top().render();
 	}
 }
 
 bool GameStateMachine :: is_changing() {
-	return changing;
+	return changing_;
 }
 
 
-bool GameStateMachine :: changing = false;
+bool GameStateMachine :: changing_ = false;
