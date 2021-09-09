@@ -45,7 +45,6 @@ Game :: Game(const std::string & title, const uint32_t XPOS, const uint32_t YPOS
 
 				game_state_machine_ = GameStateMachine();
 				input_handler_ = InputHandler();
-				texture_manager_ = TextureManager();
 
 				game_state_machine_.change_state(MainMenuState());
 

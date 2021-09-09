@@ -1,6 +1,5 @@
 #include "SDLGameObject.hpp"
 #include "Game.hpp"
-#include "TextureManager.hpp"
 
 SDLGameObject::SDLGameObject() :GameObject(){
 

@@ -8,7 +8,7 @@
 
 #include "InputHandler.hpp"
 #include "GameStateMachine.hpp"
-#include "TextureManager.hpp"
+#include "Texture.hpp"
 
 
 struct SDL_WindowDeleter {
@@ -30,7 +30,6 @@ class Game {
 
 		InputHandler input_handler_;
 		GameStateMachine game_state_machine_;
-		TextureManager texture_manager_;
 
 		uint32_t current_frame_;
 

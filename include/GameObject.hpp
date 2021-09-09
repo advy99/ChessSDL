@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "TextureManager.hpp"
+#include "Texture.hpp"
 #include "LoaderParams.hpp"
 #include <string>
 

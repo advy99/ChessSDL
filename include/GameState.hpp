@@ -8,7 +8,6 @@
 class GameState {
 	protected:
 
-		TextureManager texture_manager_;
 		std::vector<GameObject> objects_;
 
 	public:
