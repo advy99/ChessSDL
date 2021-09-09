@@ -9,7 +9,7 @@ Texture :: ~Texture(){
 }
 
 
-bool Texture :: load(const std::string file, const std::string id,
+bool Texture :: load(const std::string & file, const std::string & id,
 									 SDL_Renderer * g_renderer){
 
 	bool success = true;
@@ -89,7 +89,7 @@ void Texture :: draw_frame(const int X, const int Y,
 
 
 
-void Texture :: draw_tile(, const int MARGIN,
+void Texture :: draw_tile( const int MARGIN,
 										const int SPACING, const int X, const int Y,
 										const int WIDTH, const int HEIGHT,
 										const int CURRENT_ROW, const int CURRENT_FRAME,
@@ -107,5 +107,9 @@ void Texture :: draw_tile(, const int MARGIN,
 
 	SDL_RenderCopyEx(renderer, texture_, &src_rect, &dest_rect,
 						  0, 0, SDL_FLIP_NONE);
+}
+
+std::string Texture :: get_texture_id() const {
+	return texture_id_;
 }
 
