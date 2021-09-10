@@ -63,11 +63,11 @@ void TileLayer::render() {
 	int x2 = 0;
 	int y2 = 0;
 
-	x = position.getX() / tile_size;
-	y = position.getY() / tile_size;
+	x = position.get_x() / tile_size;
+	y = position.get_y() / tile_size;
 
-	x2 = int(position.getX()) % tile_size;
-	y2 = int(position.getY()) % tile_size;
+	x2 = int(position.get_x()) % tile_size;
+	y2 = int(position.get_y()) % tile_size;
 
 	for ( int i = 0; i < num_rows; i++ ) {
 		for ( int j = 0; j <= num_cols && j < (int) tile_ids[i].size(); j++ ) {
