@@ -11,18 +11,18 @@ MainMenuState::~MainMenuState() {
 }
 
 void MainMenuState :: update(){
-	if (!GameStateMachine::is_changing()) {
-		for(auto & object: objects_) {
-			object.update();
-		}
+	auto it = objects_.begin();
+	while (it != objects_.end() && !GameStateMachine::is_changing()) {
+		(*it)->update();
+		++it;
 	}
 }
 
 void MainMenuState :: render() {
-	if (!GameStateMachine::is_changing()) {
-		for(auto & object: objects_) {
-			object.draw();
-		}
+	auto it = objects_.begin();
+	while (it != objects_.end() && !GameStateMachine::is_changing()) {
+		(*it)->draw();
+		++it;
 	}
 
 }
@@ -52,7 +52,7 @@ std::string MainMenuState::get_state_id() const {
 void MainMenuState::menu_to_play() {
 	std::cout << "Clicked Play button" << std::endl;
 
-	Game::change_state(PlayState());
+	Game::change_state(std::unique_ptr<PlayState>());
 }
 
 
@@ -64,7 +64,7 @@ void MainMenuState::exit_from_menu() {
 
 void MainMenuState::set_callbacks(const std::vector<Callback> & callbacks) {
 	for ( unsigned i = 0; i < objects_.size(); i++ ) {
-		MenuButton * button = dynamic_cast<MenuButton*> (&objects_[i]) ;
+		MenuButton * button = dynamic_cast<MenuButton*> (objects_[i].get()) ;
 		if ( button != nullptr ) {
 			button->set_callback(callbacks[button->get_callback_id() ]);
 		}
