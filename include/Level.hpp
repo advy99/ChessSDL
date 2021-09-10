@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 #include "Layer.hpp"
 #include "Texture.hpp"
 
@@ -22,7 +23,7 @@ struct Tileset {
 class Level {
 	private:
 		std::vector<Tileset> tilesets_;
-		std::vector<Layer> layers_;
+		std::vector<std::unique_ptr<Layer> > layers_;
 
 		friend class LevelParser;
 		Level() {};
@@ -34,7 +35,7 @@ class Level {
 		void render();
 
 		std::vector<Tileset> * get_tilesets();
-		std::vector<Layer> * get_layers();
+		std::vector<std::unique_ptr<Layer> > * get_layers();
 
 };
 

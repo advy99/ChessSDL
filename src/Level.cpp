@@ -7,13 +7,13 @@ std::vector<Tileset> * Level::get_tilesets() {
 	return &tilesets_;
 }
 
-std::vector<Layer> * Level::get_layers() {
+std::vector<std::unique_ptr<Layer> > * Level::get_layers() {
 	return &layers_;
 }
 
 void Level::update() {
 	for ( unsigned i = 0; i < layers_.size(); i++ ) {
-		layers_[i].update();
+		layers_[i]->update();
 	}
 }
 
@@ -21,6 +21,6 @@ void Level::update() {
 
 void Level::render() {
 	for ( unsigned i = 0; i < layers_.size(); i++ ) {
-		layers_[i].render();
+		layers_[i]->render();
 	}
 }
