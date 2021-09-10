@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "Layer.hpp"
+#include "Texture.hpp"
 
 struct Tileset {
 	int first_grid_id;
