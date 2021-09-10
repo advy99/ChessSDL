@@ -1,9 +1,10 @@
 #include "StateParser.hpp"
 #include "Game.hpp"
+#include "GameObjectFactory.hpp"
 
 bool StateParser::parse_state(const char * state_file,
 									  const std::string & state_id,
-									  std::vector<GameObject> & objects){
+									  std::vector<std::unique_ptr<GameObject> > & objects){
 	tinyxml2::XMLDocument xml_doc;
 
 	bool success;
@@ -46,7 +47,7 @@ bool StateParser::parse_state(const char * state_file,
 }
 
 void StateParser::parse_objects(tinyxml2::XMLElement * state,
-										 std::vector<GameObject> & objects){
+										 std::vector<std::unique_ptr<GameObject> > & objects){
 
 	for ( tinyxml2::XMLElement * element = state->FirstChildElement();
 			element != nullptr; element = element->NextSiblingElement() ) {
@@ -69,14 +70,13 @@ void StateParser::parse_objects(tinyxml2::XMLElement * state,
 															  num_frames, callback_id,
 															  anim_speed);
 
-		// TODO: Fix call to GameObjectFactory, maybe a static method?
-		GameObject object = GameObjectFactory::create(
+		GameObject * object = GameObjectFactory::create(
 												element->Attribute("type"));
-		object.load(params);
+		object->load(params);
 
 		delete params;
 
-		objects.push_back(object);
+		objects.push_back(std::unique_ptr<GameObject>(object));
 	}
 
 }
