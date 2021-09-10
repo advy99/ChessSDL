@@ -37,7 +37,7 @@ class Game {
 		static uint32_t width_;
 		static uint32_t height_;
 
-		static std::vector< GameObject > objects_;
+		static std::vector< std::unique_ptr<GameObject> > objects_;
 
 	public:
 
@@ -59,7 +59,7 @@ class Game {
 
 		static void stop_running();
 
-		static void change_state(const GameState & state);
+		static void change_state(std::unique_ptr<GameState> state);
 
 		static void pop_state();
 

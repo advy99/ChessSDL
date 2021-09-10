@@ -44,9 +44,8 @@ void Game :: init(const std::string & title, const uint32_t XPOS, const uint32_t
 				SDL_SetRenderDrawColor(renderer_.get(), 0, 0, 0, 255);
 
 				game_state_machine_ = GameStateMachine();
-				input_handler_ = InputHandler();
 
-				game_state_machine_.change(MainMenuState());
+				game_state_machine_.change(std::make_unique<MainMenuState>());
 
 				width_ = WIDTH;
 				height_ = HEIGHT;
@@ -98,8 +97,8 @@ void Game :: stop_running () {
 	running_ = false;
 }
 
-void Game :: change_state(const GameState & state) {
-	game_state_machine_.change(state);
+void Game :: change_state(std::unique_ptr<GameState> state) {
+	game_state_machine_.change(std::move(state));
 }
 
 
