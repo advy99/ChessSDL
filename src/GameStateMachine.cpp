@@ -1,21 +1,21 @@
 #include "GameStateMachine.hpp"
 
-void GameStateMachine :: push(const GameState & state) {
-	game_states_.push(state);
-	game_states_.top().on_enter();
+void GameStateMachine :: push(std::unique_ptr<GameState> state) {
+	game_states_.push(std::move(state));
+	game_states_.top()->on_enter();
 
 	changing_ = true;
 }
 
-void GameStateMachine :: change(const GameState & state) {
+void GameStateMachine :: change(std::unique_ptr<GameState> state) {
 
 	if ( !game_states_.empty() ) {
-		if ( game_states_.top().get_state_id() != state.get_state_id() ){
+		if ( game_states_.top()->get_state_id() != state->get_state_id() ){
 			pop();
-			push(state);
+			push(std::move(state));
 		}
 	} else {
-		push(state);
+		push(std::move(state));
 	}
 
 	changing_ = true;
@@ -33,13 +33,13 @@ void GameStateMachine :: pop() {
 void GameStateMachine :: update() {
 	changing_ = false;
 	if ( !game_states_.empty() ) {
-		game_states_.top().update();
+		game_states_.top()->update();
 	}
 }
 
 void GameStateMachine :: render() {
 	if ( !game_states_.empty() ) {
-		game_states_.top().render();
+		game_states_.top()->render();
 	}
 }
 

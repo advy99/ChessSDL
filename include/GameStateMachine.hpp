@@ -3,17 +3,18 @@
 
 #include "GameState.hpp"
 #include <stack>
+#include <memory>
 
 class GameStateMachine {
 	private:
-		std::stack<GameState> game_states_;
+		std::stack< std::unique_ptr<GameState> > game_states_;
 		static bool changing_;
 
 
 	public:
 		~GameStateMachine() = default;
-		void push(const GameState & state);
-		void change(const GameState & state);
+		void push(std::unique_ptr<GameState> state);
+		void change(std::unique_ptr<GameState> state);
 		void pop();
 
 		void update();
