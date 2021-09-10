@@ -3,12 +3,13 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "GameObject.hpp"
 
 class GameState {
 	protected:
 
-		std::vector<GameObject> objects_;
+		std::vector<std::unique_ptr<GameObject> > objects_;
 
 	public:
 		virtual ~GameState() {};
