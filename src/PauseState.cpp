@@ -14,7 +14,7 @@ std::string PauseState::get_state_id() const {
 }
 
 void PauseState::pause_to_main(){
-	Game::change_state(MainMenuState());
+	Game::change_state(std::make_unique<MainMenuState>());
 }
 
 
@@ -54,7 +54,7 @@ bool PauseState::on_enter() {
 
 void PauseState::set_callbacks(const std::vector<Callback> & callbacks) {
 	for ( unsigned i = 0; i < objects_.size(); i++ ) {
-		MenuButton * button = dynamic_cast<MenuButton*> (&objects_[i]) ;
+		MenuButton * button = dynamic_cast<MenuButton*> (objects_[i].get()) ;
 		if ( button != nullptr ) {
 			button->set_callback(callbacks[button->get_callback_id() ]);
 		}

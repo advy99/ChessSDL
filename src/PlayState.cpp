@@ -13,12 +13,12 @@ PlayState::~PlayState() {
 }
 
 void PlayState::update() {
-	level_.update();
+	level_->update();
 
 }
 
 void PlayState::render() {
-	level_.render();
+	level_->render();
 }
 
 bool PlayState :: on_enter() {
@@ -26,7 +26,7 @@ bool PlayState :: on_enter() {
 
 	bool success = true;
 
-	level_ = std::make_unique(LevelParser::parse_level("assets/first_csv.tmx"));
+	level_ = std::move(LevelParser::parse_level("assets/first_csv.tmx"));
 
 	return success;
 }
@@ -35,21 +35,21 @@ std::string PlayState :: get_state_id() const {
 	return play_id_;
 }
 
-bool PlayState::check_collision(const SDLGameObject & p1,
-										  const SDLGameObject & p2){
+bool PlayState::check_collision(const SDLGameObject * p1,
+										  const SDLGameObject * p2){
 	bool collision = false;
 
 
-	int leftA = p1.get_position().get_x();
-	int rightA = leftA + p1.get_width();
-	int topA = p1.get_position().get_y();
-	int bottomA = topA + p1.get_height();
+	int leftA = p1->get_position().get_x();
+	int rightA = leftA + p1->get_width();
+	int topA = p1->get_position().get_y();
+	int bottomA = topA + p1->get_height();
 
 
-	int leftB = p2.get_position().get_x();
-	int rightB = leftB + p2.get_width();
-	int topB = p2.get_position().get_y();
-	int bottomB = topB + p2.get_height();
+	int leftB = p2->get_position().get_x();
+	int rightB = leftB + p2->get_width();
+	int topB = p2->get_position().get_y();
+	int bottomB = topB + p2->get_height();
 
 
 	collision = ( bottomA >= topB && topA <= bottomB ) &&

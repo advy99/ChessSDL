@@ -1,4 +1,5 @@
 #include "GameOverState.hpp"
+#include "PlayState.hpp"
 #include "Game.hpp"
 #include "MenuState.hpp"
 #include "MenuButton.hpp"
@@ -14,11 +15,11 @@ std::string GameOverState::get_state_id() const {
 }
 
 void GameOverState::game_over_to_main() {
-	Game::change_state(MainMenuState());
+	Game::change_state(std::make_unique<MainMenuState>());
 }
 
-void GameOverState::restartPlay() {
-	Game::change_state(PlayState());
+void GameOverState::restart_play() {
+	Game::change_state(std::make_unique<PlayState>());
 
 }
 
@@ -41,14 +42,14 @@ bool GameOverState::on_enter() {
 
 void GameOverState::update() {
 	for ( unsigned i = 0; i < objects_.size() && !GameStateMachine::is_changing(); i++ ) {
-		objects[i].update();
+		objects_[i]->update();
 	}
 }
 
 
 void GameOverState::render() {
 	for ( unsigned i = 0; i < objects_.size() && !GameStateMachine::is_changing(); i++ ) {
-		objects[i].draw();
+		objects_[i]->draw();
 	}
 }
 
@@ -56,7 +57,7 @@ void GameOverState::render() {
 
 void GameOverState::set_callbacks(const std::vector<Callback> & callbacks) {
 	for ( unsigned i = 0; i < objects_.size(); i++ ) {
-		MenuButton * button = dynamic_cast<MenuButton*> (&objects_[i]) ;
+		MenuButton * button = dynamic_cast<MenuButton*> (objects_[i].get()) ;
 		if ( button != nullptr ) {
 			button->set_callback(callbacks[button->get_callback_id() ]);
 		}

@@ -17,10 +17,10 @@ class GameOverState : public MenuState {
 		virtual void set_callbacks(const std::vector<Callback> & callbacks);
 
 	public:
+		virtual bool on_enter();
 		virtual ~GameOverState();
 		virtual void update();
 		virtual void render();
-		virtual bool onEnter();
 
 		virtual std::string get_state_id() const;
 
