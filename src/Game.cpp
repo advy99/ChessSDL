@@ -74,7 +74,7 @@ void Game :: update() {
 }
 
 void Game :: handle_events() {
-	input_handler_.update();
+	InputHandler::update();
 }
 
 bool Game :: running() {
@@ -107,3 +107,10 @@ void Game :: pop_state() {
 }
 
 
+bool Game :: running_ = false;
+std::unique_ptr<SDL_Window, SDL_WindowDeleter> Game :: window_ = nullptr;
+std::unique_ptr<SDL_Renderer, SDL_RendererDeleter> Game :: renderer_ = nullptr;
+GameStateMachine Game :: game_state_machine_;
+uint32_t Game :: current_frame_;
+uint32_t Game :: width_;
+// std::vector<std::unique_ptr<GameObject> > Game :: objects_;

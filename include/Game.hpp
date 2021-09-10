@@ -29,7 +29,6 @@ class Game {
 		static std::unique_ptr<SDL_Window, SDL_WindowDeleter> window_;
 		static std::unique_ptr<SDL_Renderer, SDL_RendererDeleter> renderer_;
 
-		static InputHandler input_handler_;
 		static GameStateMachine game_state_machine_;
 
 		static uint32_t current_frame_;
@@ -37,7 +36,7 @@ class Game {
 		static uint32_t width_;
 		static uint32_t height_;
 
-		static std::vector< std::unique_ptr<GameObject> > objects_;
+		// static std::vector< std::unique_ptr<GameObject> > objects_;
 
 	public:
 
