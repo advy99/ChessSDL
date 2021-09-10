@@ -10,7 +10,7 @@ std::unique_ptr<Level> LevelParser::parse_level(const char * level_file){
 	level_document.LoadFile(level_file);
 
 
-	std::unique_ptr<Level> level = std::make_unique<Level>();
+	std::unique_ptr<Level> level = std::unique_ptr<Level>(new Level());
 
 
 	tinyxml2::XMLElement * root = level_document.RootElement();
@@ -76,7 +76,7 @@ void LevelParser::parse_tilesets(tinyxml2::XMLElement * tile_element,
 
 
 void LevelParser::parse_tile_layer(tinyxml2::XMLElement * tile_element,
-											std::vector<Layer> * layers,
+											std::vector<std::unique_ptr<Layer> > * layers,
 											const std::vector<Tileset> * tilesets){
 	TileLayer * tile_layer = new TileLayer(tile_size, *tilesets);
 
@@ -121,13 +121,13 @@ void LevelParser::parse_tile_layer(tinyxml2::XMLElement * tile_element,
 	}
 
 	tile_layer->set_tile_ids(data);
-	layers->push_back(*tile_layer);
+	layers->push_back(std::unique_ptr<TileLayer>(tile_layer));
 
 }
 
 
 void LevelParser::parse_object_layer( tinyxml2::XMLElement * root,
-												std::vector<Layer> * layers){
+												std::vector<std::unique_ptr<Layer> > * layers){
 	ObjectLayer * object_layer = new ObjectLayer();
 
 	for ( tinyxml2::XMLElement * element = root->FirstChildElement();
@@ -199,12 +199,17 @@ void LevelParser::parse_object_layer( tinyxml2::XMLElement * root,
 																  callback_id, anim_speed);
 
 			game_object->load(params);
-			object_layer->get_game_objects()->push_back(*game_object);
+			object_layer->get_game_objects()->push_back(std::unique_ptr<GameObject>(game_object));
 
 			delete params;
 
 		}
 	}
 
-	layers->push_back(*object_layer);
+	layers->push_back(std::unique_ptr<ObjectLayer>(object_layer));
 }
+
+int LevelParser :: tile_size = 0;
+int LevelParser :: width = 0;
+int LevelParser :: height = 0;
+
