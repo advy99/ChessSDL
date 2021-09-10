@@ -15,11 +15,11 @@ std::string GameOverState::get_state_id() const {
 }
 
 void GameOverState::game_over_to_main() {
-	Game::change_state(std::make_unique<MainMenuState>());
+	Game::change_state(std::unique_ptr<MainMenuState>(new MainMenuState()));
 }
 
 void GameOverState::restart_play() {
-	Game::change_state(std::make_unique<PlayState>());
+	Game::change_state(std::unique_ptr<PlayState>(new PlayState()));
 
 }
 

@@ -52,7 +52,7 @@ std::string MainMenuState::get_state_id() const {
 void MainMenuState::menu_to_play() {
 	std::cout << "Clicked Play button" << std::endl;
 
-	Game::change_state(std::unique_ptr<PlayState>());
+	Game::change_state(std::unique_ptr<PlayState>(new PlayState()));
 }
 
 
