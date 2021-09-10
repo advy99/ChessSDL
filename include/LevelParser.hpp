@@ -13,17 +13,17 @@ class LevelParser {
 		static int height;
 
 
-		static void parseTilesets(tinyxml2::XMLElement * tileset_root,
+		static void parse_tilesets(tinyxml2::XMLElement * tileset_root,
 								 std::vector<Tileset> * tilesets);
 
-		static void parseTileLayer(tinyxml2::XMLElement * tile_element,
-								  std::vector<Layer *> * layers,
+		static void parse_tile_layer(tinyxml2::XMLElement * tile_element,
+								  std::vector<Layer> * layers,
 								  const std::vector<Tileset> * tilesets);
 
-		static void parseTextures(tinyxml2::XMLElement * root);
+		static void parse_textures(tinyxml2::XMLElement * root);
 
-		static void parseObjectLayer(tinyxml2::XMLElement * object,
-									 std::vector<Layer *> * layers);
+		static void parse_object_layer(tinyxml2::XMLElement * object,
+									 std::vector<Layer> * layers);
 
 
 	public:
