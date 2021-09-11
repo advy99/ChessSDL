@@ -1,6 +1,7 @@
 #ifndef MENUBUTTON_H_INCLUDED
 #define MENUBUTTON_H_INCLUDED
 
+#include <functional>
 #include "SDLGameObject.hpp"
 #include "GameObjectFactory.hpp"
 
@@ -12,7 +13,7 @@ class MenuButton : public SDLGameObject {
 			CLICKED = 2
 		};
 
-		void (*callback_) ();
+		std::function<void()> callback_;
 		int callback_id_;
 
 		bool button_released_ = false;
@@ -24,7 +25,7 @@ class MenuButton : public SDLGameObject {
 		virtual void update();
 		virtual void load(const LoaderParams * params);
 
-		void set_callback( void (*func)()  );
+		void set_callback( const std::function<void()> & function );
 		int get_callback_id() const;
 
 };

@@ -52,7 +52,7 @@ bool PauseState::on_enter() {
 }
 
 
-void PauseState::set_callbacks(const std::vector<Callback> & callbacks) {
+void PauseState::set_callbacks(const std::vector<std::function<void()> > & callbacks) {
 	for ( unsigned i = 0; i < objects_.size(); i++ ) {
 		MenuButton * button = dynamic_cast<MenuButton*> (objects_[i].get()) ;
 		if ( button != nullptr ) {

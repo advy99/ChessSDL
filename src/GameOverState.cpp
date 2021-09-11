@@ -27,7 +27,7 @@ bool GameOverState::on_enter() {
 	bool success = true;
 
 
-	StateParser::parse_state("assets/test.xml", game_over_id_, objects_);
+	StateParser::parse_state("assets/states.xml", game_over_id_, objects_);
 
 	callbacks_.push_back(game_over_to_main);
 	callbacks_.push_back(restart_play);
@@ -55,7 +55,7 @@ void GameOverState::render() {
 
 
 
-void GameOverState::set_callbacks(const std::vector<Callback> & callbacks) {
+void GameOverState::set_callbacks(const std::vector<std::function<void()> > & callbacks) {
 	for ( unsigned i = 0; i < objects_.size(); i++ ) {
 		MenuButton * button = dynamic_cast<MenuButton*> (objects_[i].get()) ;
 		if ( button != nullptr ) {

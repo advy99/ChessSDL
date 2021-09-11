@@ -15,8 +15,8 @@ class GameStateMachine {
 		GameStateMachine();
 		GameStateMachine(GameStateMachine && other) = default;
 		~GameStateMachine() = default;
-		void push(std::unique_ptr<GameState> state);
-		void change(std::unique_ptr<GameState> state);
+		void push(std::unique_ptr<GameState> && state);
+		void change(std::unique_ptr<GameState> && state);
 		void pop();
 
 		void update();

@@ -14,7 +14,7 @@ class SelectPlayerState : public MenuState {
 		static void select_player_to_menu();
 
 
-		virtual void set_callbacks(const std::vector<Callback> & callbacks);
+		virtual void set_callbacks(const std::vector<std::function<void()> > & callbacks);
 
 	public:
 		virtual ~SelectPlayerState();

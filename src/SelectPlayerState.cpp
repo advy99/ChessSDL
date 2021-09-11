@@ -37,6 +37,7 @@ bool SelectPlayerState :: on_enter() {
 
 	callbacks_.push_back(select_player_to_play);
 	callbacks_.push_back(select_player_to_menu);
+	callbacks_.push_back(select_player_to_menu);
 
 	set_callbacks(callbacks_);
 
@@ -61,11 +62,11 @@ void SelectPlayerState::select_player_to_menu() {
 }
 
 
-void SelectPlayerState::set_callbacks(const std::vector<Callback> & callbacks) {
+void SelectPlayerState::set_callbacks(const std::vector<std::function<void()> > & callbacks) {
 	for ( unsigned i = 0; i < objects_.size(); i++ ) {
 		MenuButton * button = dynamic_cast<MenuButton*> (objects_[i].get()) ;
 		if ( button != nullptr ) {
-			button->set_callback(callbacks[button->get_callback_id() ]);
+			button->set_callback(callbacks.at(button->get_callback_id()) );
 		}
 	}
 }

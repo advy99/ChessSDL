@@ -14,7 +14,7 @@ class MainMenuState : public MenuState {
 		static void exit_from_menu();
 
 
-		virtual void set_callbacks(const std::vector<Callback> & callbacks);
+		virtual void set_callbacks(const std::vector<std::function<void()> > & callbacks);
 
 	public:
 		virtual ~MainMenuState();

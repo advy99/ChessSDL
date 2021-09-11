@@ -47,7 +47,7 @@ void MenuButton::load(const LoaderParams * params) {
 	current_frame_ = static_cast<int>(button_state::MOUSE_OUT);
 }
 
-void MenuButton::set_callback( void (*func)()  ) {
+void MenuButton::set_callback( const std::function<void()> & func ) {
 	callback_ = func;
 }
 

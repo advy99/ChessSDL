@@ -2,14 +2,13 @@
 
 GameStateMachine :: GameStateMachine(){}
 
-void GameStateMachine :: push(std::unique_ptr<GameState> state) {
+void GameStateMachine :: push(std::unique_ptr<GameState> && state) {
 	game_states_.push(std::move(state));
-	game_states_.top()->on_enter();
 
 	changing_ = true;
 }
 
-void GameStateMachine :: change(std::unique_ptr<GameState> state) {
+void GameStateMachine :: change(std::unique_ptr<GameState> && state) {
 
 	if ( !game_states_.empty() ) {
 		if ( game_states_.top()->get_state_id() != state->get_state_id() ){
@@ -33,7 +32,13 @@ void GameStateMachine :: pop() {
 }
 
 void GameStateMachine :: update() {
-	changing_ = false;
+
+	// we are changing of state, need to enter the new state
+	if (changing_ && !game_states_.empty()) {
+		changing_ = false;
+		game_states_.top()->on_enter();
+	}
+
 	if ( !game_states_.empty() ) {
 		game_states_.top()->update();
 	}

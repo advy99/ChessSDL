@@ -13,7 +13,7 @@ class PauseState : public MenuState {
 		static const std::string pause_id_;
 
 
-		virtual void set_callbacks(const std::vector<Callback> & callbacks);
+		virtual void set_callbacks(const std::vector<std::function<void()> > & callbacks);
 
 	public:
 		virtual ~PauseState();
