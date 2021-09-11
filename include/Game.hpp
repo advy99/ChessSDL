@@ -42,6 +42,8 @@ class Game {
 
 		static uint32_t width_;
 		static uint32_t height_;
+		static std::unique_ptr<GameState> next_state_;
+		static bool changing_game_state_;
 
 		// static std::vector< std::unique_ptr<GameObject> > objects_;
 
@@ -65,7 +67,7 @@ class Game {
 
 		static void stop_running();
 
-		static void change_state(std::unique_ptr<GameState> state);
+		static void change_state(std::unique_ptr<GameState> && state);
 
 		static void pop_state();
 

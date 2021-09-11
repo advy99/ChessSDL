@@ -72,6 +72,10 @@ void Game :: render() {
 }
 
 void Game :: update() {
+	if (changing_game_state_) {
+		game_state_machine_.change(std::move(next_state_));
+		changing_game_state_ = false;
+	}
 	game_state_machine_.update();
 }
 
@@ -98,9 +102,9 @@ uint32_t Game :: height() {
 void Game :: stop_running () {
 	running_ = false;
 }
-
-void Game :: change_state(std::unique_ptr<GameState> state) {
-	game_state_machine_.change(std::move(state));
+void Game :: change_state(std::unique_ptr<GameState> && state) {
+	next_state_ = std::move(state);
+	changing_game_state_ = true;
 }
 
 
@@ -116,5 +120,7 @@ GameStateMachine Game :: game_state_machine_;
 uint32_t Game :: current_frame_;
 uint32_t Game :: width_;
 uint32_t Game :: height_;
+std::unique_ptr<GameState> Game :: next_state_ = nullptr;
+bool Game :: changing_game_state_ = false;
 
 // std::vector<std::unique_ptr<GameObject> > Game :: objects_;
