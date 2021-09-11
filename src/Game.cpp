@@ -44,6 +44,8 @@ void Game :: init(const std::string & title, const uint32_t XPOS, const uint32_t
 				SDL_SetRenderDrawColor(renderer_.get(), 0, 0, 0, 255);
 
 				GameObjectFactory::register_type("MenuButton", std::make_unique<MenuButtonCreator>());
+				GameObjectFactory::register_type("ChessBoard", std::make_unique<ChessBoardCreator>());
+				GameObjectFactory::register_type("Rectangle", std::make_unique<RectangleCreator>());
 
 				game_state_machine_.change(std::make_unique<MainMenuState>());
 

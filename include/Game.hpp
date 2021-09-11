@@ -14,7 +14,9 @@
 #include "Enemy.hpp"
 #include "AnimatedGraphic.hpp"
 #include "MainMenuState.hpp"
+#include "ChessBoard.hpp"
 #include "Texture.hpp"
+#include "Figures/Rectangle.hpp"
 
 
 struct SDL_WindowDeleter {
