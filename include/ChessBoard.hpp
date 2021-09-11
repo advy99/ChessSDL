@@ -16,10 +16,10 @@ class ChessBoard : public SDLGameObject {
 		void create_board();
 
 	public:
-		static const uint32_t NUM_ROWS = 8;
-		static const uint32_t NUM_COLS = 8;
-		static const uint32_t POSITION_WIDTH = 50;
-		static const uint32_t POSITION_HEIGHT = 50;
+		static const uint32_t NUM_ROWS ;
+		static const uint32_t NUM_COLS ;
+		static const uint32_t POSITION_WIDTH ;
+		static const uint32_t POSITION_HEIGHT ;
 
 		ChessBoard();
 

@@ -85,3 +85,14 @@ void ChessBoard::load(const LoaderParams * params) {
 std::unique_ptr<GameObject> ChessBoardCreator::create_game_object() const {
 	return std::make_unique<ChessBoard>();
 }
+
+
+
+
+const uint32_t ChessBoard :: NUM_ROWS = 8;
+const uint32_t ChessBoard :: NUM_COLS = 8;
+const uint32_t ChessBoard :: POSITION_WIDTH = 50;
+const uint32_t ChessBoard :: POSITION_HEIGHT = 50;
+
+
+
