@@ -36,7 +36,6 @@ class SDLGameObject : public GameObject{
 
 		virtual void draw();
 		virtual void update();
-		virtual void clean();
 
 		Vector2D get_position() const;
 		int get_width() const;

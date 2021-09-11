@@ -40,7 +40,7 @@ int SDLGameObject::get_height() const {
 }
 
 void SDLGameObject::load(const LoaderParams * params) {
-	position_ = Vector2D(params->get_x(), params->get_x());
+	position_ = Vector2D(params->get_x(), params->get_y());
 	velocity_ = Vector2D(0, 0);
 	acceleration_ = Vector2D(0, 0);
 	width_ = params->get_width();
