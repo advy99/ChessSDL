@@ -70,13 +70,13 @@ void StateParser::parse_objects(tinyxml2::XMLElement * state,
 															  num_frames, callback_id,
 															  anim_speed);
 
-		GameObject * object = GameObjectFactory::create(
-												element->Attribute("type"));
+		std::unique_ptr<GameObject> object = std::move(GameObjectFactory::create(
+															element->Attribute("type")));
 		object->load(params);
 
 		delete params;
 
-		objects.push_back(std::unique_ptr<GameObject>(object));
+		objects.push_back(std::move(object));
 	}
 
 }
