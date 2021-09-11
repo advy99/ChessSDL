@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<STATES>
+	<MENU>
+		<OBJECTS>
+			<object type="MenuButton" x="125" y="100" width="400" height="100"
+					  texture_id="playbutton" texture_path="assets/play_button.png"  num_frames="3" callback_id="0" color="0x000000FF"></object>
+			<object type="MenuButton" x="125" y="300" width="400" height="100"
+					  texture_id="exitbutton" texture_path="assets/exit_button.png"  num_frames="3" callback_id="1" color="0x000000FF"></object>
+		</OBJECTS>
+	</MENU>
+
+	<SELECT_PLAYER>
+		<OBJECTS>
+			<object type="MenuButton" x="120" y="50" width="400" height="100"
+					  texture_id="white" texture_path="assets/play_button.png"  num_frames="3" callback_id="0" color="0x000000FF"></object>
+			<object type="MenuButton" x="100" y="200" width="400" height="100"
+					  texture_id="black" texture_path="assets/exit_button.png"  num_frames="3" callback_id="1" color="0x000000FF"></object>
+			<object type="MenuButton" x="100" y="350" width="400" height="100"
+					  texture_id="back_to_menu" texture_path="assets/exit_button.png"  num_frames="3" callback_id="2" color="0x000000FF"></object>
+		</OBJECTS>
+
+	</SELECT_PLAYER>
+
+
+
+	<PLAY>
+		<OBJECTS>
+			<object type="Rectangle" x="0" y="0" width="640" height="480"
+					  texture_id="" texture_path=""  num_frames="0" callback_id="0" color="0xFFFFFFFF"></object>
+			<object type="ChessBoard" x="110" y="25" width="400" height="100"
+					  texture_id="" texture_path=""  num_frames="0" callback_id="0" color="0x000000FF"></object>
+		</OBJECTS>
+
+	</PLAY>
+
+
+</STATES>
