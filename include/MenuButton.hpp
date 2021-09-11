@@ -2,7 +2,7 @@
 #define MENUBUTTON_H_INCLUDED
 
 #include "SDLGameObject.hpp"
-// #include "GameObjectFactory.hpp"
+#include "GameObjectFactory.hpp"
 
 class MenuButton : public SDLGameObject {
 	private:
@@ -15,7 +15,7 @@ class MenuButton : public SDLGameObject {
 		void (*callback_) ();
 		int callback_id_;
 
-		bool button_released_;
+		bool button_released_ = false;
 
 	public:
 		MenuButton();
@@ -30,11 +30,11 @@ class MenuButton : public SDLGameObject {
 };
 
 
-/* class MenuButtonCreator : public BaseCreator {
+class MenuButtonCreator : public BaseCreator {
 
 	public:
-		GameObject create_game_object() const;
+		std::unique_ptr<GameObject> create_game_object() const;
 
-}; */
+};
 
 #endif

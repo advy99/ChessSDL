@@ -12,7 +12,6 @@ void MenuButton::draw() {
 
 
 void MenuButton::update() {
-	// TODO: this need to be static in input handler
 	Vector2D mouse_position = InputHandler::get_mouse_position();
 
 
@@ -58,6 +57,6 @@ int MenuButton::get_callback_id() const {
 
 
 
-/* GameObject MenuButtonCreator::create_game_object() const {
-	return MenuButton();
-} */
+std::unique_ptr<GameObject> MenuButtonCreator::create_game_object() const {
+	return std::make_unique<MenuButton>();
+}
