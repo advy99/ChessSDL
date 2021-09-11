@@ -3,13 +3,14 @@
 
 #include <string>
 #include <map>
+#include <memory>
 #include "GameObject.hpp"
 
 class BaseCreator {
 	private:
 
 	public:
-		virtual GameObject * create_game_object () const = 0;
+		virtual std::unique_ptr<GameObject> create_game_object () const = 0;
 		virtual ~BaseCreator() {}
 
 };
@@ -17,13 +18,13 @@ class BaseCreator {
 
 class GameObjectFactory {
 	private:
-		static std::map<std::string, BaseCreator *> creators;
+		static std::map<std::string, std::unique_ptr<BaseCreator> > creators;
 
 	public:
 
 		~GameObjectFactory();
-		static bool register_type(const std::string type_id,  BaseCreator * creator);
-		static GameObject * create(const std::string type_id);
+		static bool register_type(const std::string type_id,  std::unique_ptr<BaseCreator> creator);
+		static std::unique_ptr<GameObject> create(const std::string type_id);
 
 };
 
