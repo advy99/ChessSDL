@@ -14,15 +14,15 @@ void SDL_RendererDeleter :: operator()(SDL_Renderer * renderer) {
 
 void Game :: init(const std::string & title, const uint32_t XPOS, const uint32_t YPOS,
 				 const uint32_t WIDTH, const uint32_t HEIGHT, const uint32_t FLAGS) {
-	
+
 	running_ = true;
-					
+
 	if (SDL_Init(SDL_INIT_EVERYTHING)  < 0) {
 		std::cerr << "SDL could not initialize. SDL_Error: "
 					 << SDL_GetError() << std::endl;
 
 		running_ = false;
-		
+
 	} else {
 		window_.reset(SDL_CreateWindow(title.c_str(), XPOS, YPOS, WIDTH, HEIGHT, FLAGS) );
 
@@ -43,7 +43,7 @@ void Game :: init(const std::string & title, const uint32_t XPOS, const uint32_t
 			} else {
 				SDL_SetRenderDrawColor(renderer_.get(), 0, 0, 0, 255);
 
-				game_state_machine_ = GameStateMachine();
+				GameObjectFactory::register_type("MenuButton", std::make_unique<MenuButtonCreator>());
 
 				game_state_machine_.change(std::make_unique<MainMenuState>());
 
@@ -113,4 +113,6 @@ std::unique_ptr<SDL_Renderer, SDL_RendererDeleter> Game :: renderer_ = nullptr;
 GameStateMachine Game :: game_state_machine_;
 uint32_t Game :: current_frame_;
 uint32_t Game :: width_;
+uint32_t Game :: height_;
+
 // std::vector<std::unique_ptr<GameObject> > Game :: objects_;

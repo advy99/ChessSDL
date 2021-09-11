@@ -8,6 +8,11 @@
 
 #include "InputHandler.hpp"
 #include "GameStateMachine.hpp"
+#include "GameObjectFactory.hpp"
+#include "MenuButton.hpp"
+#include "Player.hpp"
+#include "Enemy.hpp"
+#include "AnimatedGraphic.hpp"
 #include "MainMenuState.hpp"
 #include "Texture.hpp"
 
