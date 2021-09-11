@@ -12,15 +12,11 @@ void AnimatedGraphic::draw() {
 	SDLGameObject::draw();
 }
 
-void AnimatedGraphic::clean() {
-	SDLGameObject::clean();
-}
-
 void AnimatedGraphic::load(const LoaderParams * params) {
 	SDLGameObject::load(params);
 	animation_speed_ = params->get_anim_speed();
 }
 
-/* GameObject * AnimatedGraphicCreator::createGameObject() const {
-	return new AnimatedGraphic();
-} */
+std::unique_ptr<GameObject> AnimatedGraphicCreator::create_game_object() const {
+	return std::make_unique<AnimatedGraphic>();
+}

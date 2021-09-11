@@ -14,17 +14,16 @@ class AnimatedGraphic : public SDLGameObject{
 
 		virtual void draw();
 		virtual void update();
-		virtual void clean();
 		virtual void load(const LoaderParams * params);
 
 };
 
 
-/* class AnimatedGraphicCreator : public BaseCreator {
+class AnimatedGraphicCreator : public BaseCreator {
 
 	public:
-		GameObject * createGameObject() const;
+		std::unique_ptr<GameObject> create_game_object() const;
 
-}; */
+};
 
 #endif
