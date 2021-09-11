@@ -15,7 +15,7 @@ void Circle :: load(const LoaderParams * params) {
 }
 
 void Circle :: draw()  {
-	filledCircleColor(Game::get_renderer(), position_.get_x(), position_.get_y(), width_, color_.get_color());
+	filledCircleRGBA(Game::get_renderer(), position_.get_x(), position_.get_y(), width_, color_.red(), color_.green(), color_.blue(), color_.alpha());
 }
 
 void Circle :: update(){}
