@@ -1,5 +1,7 @@
 #include "GameStateMachine.hpp"
 
+GameStateMachine :: GameStateMachine(){}
+
 void GameStateMachine :: push(std::unique_ptr<GameState> state) {
 	game_states_.push(std::move(state));
 	game_states_.top()->on_enter();
