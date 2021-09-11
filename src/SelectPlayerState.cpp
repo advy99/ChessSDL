@@ -33,7 +33,7 @@ bool SelectPlayerState :: on_enter() {
 	bool success = true;
 
 
-	StateParser::parse_state("assets/menus.xml", menu_id_, objects_);
+	StateParser::parse_state("assets/states.xml", menu_id_, objects_);
 
 	callbacks_.push_back(select_player_to_play);
 	callbacks_.push_back(select_player_to_menu);
