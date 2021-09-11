@@ -7,26 +7,31 @@
 #include "StateParser.hpp"
 #include "LevelParser.hpp"
 
-
-
 PlayState::~PlayState() {
 }
 
 void PlayState::update() {
-	level_->update();
-
+	auto it = objects_.begin();
+	while (it != objects_.end() && !GameStateMachine::is_changing()) {
+		(*it)->update();
+		++it;
+	}
 }
 
 void PlayState::render() {
-	level_->render();
+	auto it = objects_.begin();
+	while (it != objects_.end() && !GameStateMachine::is_changing()) {
+		(*it)->draw();
+		++it;
+	}
 }
 
 bool PlayState :: on_enter() {
-	std::cout << "Entering Play state" << std::endl;
 
 	bool success = true;
 
-	level_ = std::move(LevelParser::parse_level("assets/first_csv.tmx"));
+	StateParser::parse_state("assets/states.xml", play_id_, objects_);
+
 
 	return success;
 }
