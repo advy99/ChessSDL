@@ -15,11 +15,13 @@ void SDLGameObject::draw(){
 		last_flip_ = SDL_FLIP_NONE;
 	}
 
-	texture_.draw_frame(position_.get_x(),
-							  position_.get_y(), width_, height_,
-							  current_row_, current_frame_,
-							  Game::get_renderer(),
-							  last_flip_);
+	if (texture_.get_texture_id() != ""){
+		texture_.draw_frame(position_.get_x(),
+							  	  position_.get_y(), width_, height_,
+							  	  current_row_, current_frame_,
+							  	  Game::get_renderer(),
+							  	  last_flip_);
+	}
 }
 
 void SDLGameObject::update() {
@@ -33,6 +35,10 @@ Vector2D SDLGameObject::get_position() const {
 
 int SDLGameObject::get_width() const {
 	return width_;
+}
+
+Color SDLGameObject :: get_color() const {
+	return color_;
 }
 
 int SDLGameObject::get_height() const {
@@ -49,7 +55,10 @@ void SDLGameObject::load(const LoaderParams * params) {
 	current_row_ = 1;
 	num_frames_ = params->get_num_frames();
 	last_flip_ = params->get_flip();
+	color_ = Color(params->get_color());
 
-	texture_.load(params->get_texture_path(), params->get_texture_id(), Game::get_renderer());	
+	if (params->get_texture_path() != "") {
+		texture_.load(params->get_texture_path(), params->get_texture_id(), Game::get_renderer());	
+	}
 
 }

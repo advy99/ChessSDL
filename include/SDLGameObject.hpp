@@ -8,6 +8,7 @@
 #include "Texture.hpp"
 
 #include "SDL2/SDL.h"
+#include "Figures/Color.hpp"
 
 class SDLGameObject : public GameObject{
 	private:
@@ -26,6 +27,7 @@ class SDLGameObject : public GameObject{
 		SDL_RendererFlip last_flip_;
 
 		int num_frames_;
+		Color color_;
 
 		Texture texture_;
 
@@ -40,8 +42,9 @@ class SDLGameObject : public GameObject{
 		Vector2D get_position() const;
 		int get_width() const;
 		int get_height() const;
+		Color get_color() const;
 
-		virtual void load(const LoaderParams * params);
+		virtual void load(const LoaderParams * params) = 0;
 
 
 
