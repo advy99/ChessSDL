@@ -8,7 +8,7 @@ const uint32_t DELAY_TIME = 1000.0 / TARGET_FPS;
 
 int main() {
 	
-	Game::init("Titulo", 100, 100, 1024, 768, 0);
+	Game::init("Titulo", 100, 100, 640, 480, 0);
 
 	uint32_t frame_start, frame_time;
 
