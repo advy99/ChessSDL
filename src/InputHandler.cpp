@@ -231,7 +231,7 @@ std::vector<SDL_Joystick *> InputHandler :: joysticks_;
 std::vector<std::pair<Vector2D , Vector2D > > InputHandler :: joystick_values_;
 std::vector<std::vector<bool> > InputHandler :: button_states_;
 
-std::vector<bool> InputHandler :: mouse_button_states_;
+std::vector<bool> InputHandler :: mouse_button_states_ = std::vector<bool>(3, false);
 
 Vector2D InputHandler :: mouse_position_ = Vector2D(0, 0);
 Uint8 * InputHandler :: key_state_ = nullptr;
