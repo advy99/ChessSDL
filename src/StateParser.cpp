@@ -53,6 +53,7 @@ void StateParser::parse_objects(tinyxml2::XMLElement * state,
 			element != nullptr; element = element->NextSiblingElement() ) {
 
 		int x, y, width, height, num_frames, callback_id, anim_speed;
+		uint32_t color;
 		std::string texture_id, texture_path;
 
 		x = element->IntAttribute("x");
@@ -62,13 +63,13 @@ void StateParser::parse_objects(tinyxml2::XMLElement * state,
 		num_frames = element->IntAttribute("num_frames");
 		callback_id = element->IntAttribute("callback_id");
 		anim_speed = element->IntAttribute("anim_speed");
+		color = element->UnsignedAttribute("color");
 
 		texture_id = std::string(element->Attribute("texture_id"));
 		texture_path = std::string(element->Attribute("texture_path"));
 
 		LoaderParams * params = new LoaderParams(x, y, width, height, texture_id, texture_path,
-															  num_frames, callback_id,
-															  anim_speed);
+															  num_frames, callback_id, anim_speed, color);
 
 		std::unique_ptr<GameObject> object = std::move(GameObjectFactory::create(
 															element->Attribute("type")));
