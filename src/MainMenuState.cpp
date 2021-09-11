@@ -5,6 +5,7 @@
 #include <iostream>
 #include "StateParser.hpp"
 #include "PlayState.hpp"
+#include "SelectPlayerState.hpp"
 
 MainMenuState::~MainMenuState() {
 
@@ -32,9 +33,9 @@ bool MainMenuState :: on_enter() {
 	bool success = true;
 
 
-	StateParser::parse_state("assets/test.xml", menu_id_, objects_);
+	StateParser::parse_state("assets/menus.xml", menu_id_, objects_);
 
-	callbacks_.push_back(menu_to_play);
+	callbacks_.push_back(menu_to_select_player);
 	callbacks_.push_back(exit_from_menu);
 
 	set_callbacks(callbacks_);
@@ -49,15 +50,12 @@ std::string MainMenuState::get_state_id() const {
 }
 
 
-void MainMenuState::menu_to_play() {
-	std::cout << "Clicked Play button" << std::endl;
-
-	Game::change_state(std::unique_ptr<PlayState>(new PlayState()));
+void MainMenuState::menu_to_select_player() {
+	Game::change_state(std::unique_ptr<SelectPlayerState>(new SelectPlayerState()));
 }
 
 
 void MainMenuState::exit_from_menu() {
-	std::cout << "Clicked Exit button" << std::endl;
 	Game::stop_running();
 }
 

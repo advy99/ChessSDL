@@ -10,7 +10,7 @@ class MainMenuState : public MenuState {
 		static const std::string menu_id_;
 
 
-		static void menu_to_play();
+		static void menu_to_select_player();
 		static void exit_from_menu();
 
 
