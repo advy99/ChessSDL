@@ -1,5 +1,8 @@
-#include "King.hpp"
+#include "ChessPieces/King.hpp"
 
+King :: King(const bool is_white, const Vector2D & position)
+				:ChessPiece(is_white, position){
+}
 
 bool King :: is_valid_move(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
 	bool is_valid;
@@ -19,3 +22,18 @@ bool King :: is_valid_move(const Vector2D & new_position, const std::vector<std:
 	return is_valid;
 
 }
+
+
+void King :: load(const LoaderParams * params){
+	ChessPiece::load(params);
+}
+
+void King :: update() {
+	ChessPiece::update();	
+}
+
+void King :: draw() {
+	ChessPiece::draw();
+}
+
+

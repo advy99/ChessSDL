@@ -1,5 +1,9 @@
-#include "Pawn.hpp"
+#include "ChessPieces/Pawn.hpp"
 
+Pawn :: Pawn(const bool is_white, const Vector2D & position, const bool goes_up_in_board)
+				:ChessPiece(is_white, position), goes_up_in_board_(goes_up_in_board)
+{
+}
 
 
 bool Pawn :: is_valid_move(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
@@ -36,5 +40,16 @@ bool Pawn :: is_valid_move(const Vector2D & new_position, const std::vector<std:
 
 }
 
+void Pawn :: load(const LoaderParams * params){
+	ChessPiece::load(params);
+}
+
+void Pawn :: update() {
+	ChessPiece::update();	
+}
+
+void Pawn :: draw() {
+	ChessPiece::draw();
+}
 
 

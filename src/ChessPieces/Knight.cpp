@@ -1,7 +1,10 @@
-#include "Knight.hpp"
+#include "ChessPieces/Knight.hpp"
 
+Knight :: Knight(const bool is_white, const Vector2D & position)
+				:ChessPiece(is_white, position){
+}
 
-bool Queen :: is_valid_move(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
+bool Knight :: is_valid_move(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
 	bool is_valid;
 
 	uint32_t distance_in_x = std::abs(position_in_board_.get_x() - new_position.get_x());
@@ -20,4 +23,17 @@ bool Queen :: is_valid_move(const Vector2D & new_position, const std::vector<std
 	return is_valid;
 
 }
+
+void Knight :: load(const LoaderParams * params){
+	ChessPiece::load(params);
+}
+
+void Knight :: update() {
+	ChessPiece::update();	
+}
+
+void Knight :: draw() {
+	ChessPiece::draw();
+}
+
 

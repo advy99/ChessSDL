@@ -1,4 +1,10 @@
-#include "Bishop.hpp"
+#include "ChessPieces/Bishop.hpp"
+
+
+Bishop :: Bishop(const bool is_white, const Vector2D & position)
+				:ChessPiece(is_white, position){
+}
+
 
 bool Bishop :: is_valid_move(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
 	bool is_valid;
@@ -16,6 +22,19 @@ bool Bishop :: is_valid_move(const Vector2D & new_position, const std::vector<st
 
 	return is_valid;
 
+}
+
+
+void Bishop :: load(const LoaderParams * params){
+	ChessPiece::load(params);
+}
+
+void Bishop :: update() {
+	ChessPiece::update();	
+}
+
+void Bishop :: draw() {
+	ChessPiece::draw();
 }
 
 
