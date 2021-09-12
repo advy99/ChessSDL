@@ -1,7 +1,7 @@
 #include "Knight.hpp"
 
 
-bool Queen :: is_valid_move(const Vector2D & new_position) const {
+bool Queen :: is_valid_move(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
 	bool is_valid;
 
 	uint32_t distance_in_x = std::abs(position_in_board_.get_x() - new_position.get_x());
@@ -9,6 +9,13 @@ bool Queen :: is_valid_move(const Vector2D & new_position) const {
 
 	is_valid = (distance_in_x == 2 && distance_in_y == 1) ||
 				  (distance_in_x == 1 && distance_in_y == 2);
+	
+
+	
+	// if the position is valid, check if there is another piece
+	if (is_valid) {
+		is_valid = check_if_enemy_in_position(new_position, pieces);
+	} 
 
 	return is_valid;
 
