@@ -4,16 +4,21 @@
 #include "SDLGameObject.hpp"
 #include "GameObjectFactory.hpp"
 #include "Figures/Rectangle.hpp"
+#include "ChessPieces/ChessPiece.hpp"
 #include <vector>
 
 class ChessBoard : public SDLGameObject {
 	private:
+		static const Color position_color_black_;
+		static const Color position_color_white_;
+		static const Color edge_color_;
 
 		Rectangle edge_;
-		// std::vector<std::unique_ptr<ChessPiece> > pieces_;
+		std::vector< std::vector< std::unique_ptr<ChessPiece> > > pieces_;
 		std::vector< std::vector<std::unique_ptr<Rectangle> > > positions_;
 
 		void create_board();
+		void initialize_pieces();
 
 	public:
 		static const uint32_t NUM_ROWS ;
