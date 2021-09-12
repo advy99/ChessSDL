@@ -38,13 +38,14 @@ class SDLGameObject : public GameObject{
 
 		virtual void draw();
 		virtual void update();
+		virtual void load(const LoaderParams * params) = 0;
 
 		Vector2D get_position() const;
 		int get_width() const;
 		int get_height() const;
 		Color get_color() const;
+		bool check_collision(const SDLGameObject & other) const;
 
-		virtual void load(const LoaderParams * params) = 0;
 
 
 

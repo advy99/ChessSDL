@@ -62,3 +62,32 @@ void SDLGameObject::load(const LoaderParams * params) {
 	}
 
 }
+
+bool SDLGameObject::check_collision(const SDLGameObject & other) const{
+	bool collision = false;
+
+
+	int leftA = get_position().get_x();
+	int rightA = leftA + get_width();
+	int topA = get_position().get_y();
+	int bottomA = topA + get_height();
+
+
+	int leftB = other.get_position().get_x();
+	int rightB = leftB + other.get_width();
+	int topB = other.get_position().get_y();
+	int bottomB = topB + other.get_height();
+
+
+	collision = ( bottomA >= topB && topA <= bottomB ) &&
+					( rightA >= leftB && leftA <= rightB );
+
+
+	return collision;
+}
+
+
+
+
+
+
