@@ -4,7 +4,6 @@
 
 ChessBoard::ChessBoard(  ):SDLGameObject(){}
 
-#include <iostream>
 void ChessBoard :: create_board(){
 	Color black(118, 50, 39, 255);
 	Color white(202, 156, 104, 255);
@@ -52,9 +51,8 @@ void ChessBoard :: create_board(){
 void ChessBoard::draw(){
 	SDLGameObject::draw();
 
-	/* std::cout << static_cast<uint32_t>(edge_.get_color().red()) << "\t" << static_cast<uint32_t>(edge_.get_color().green()) 
-				 << "\t" << static_cast<uint32_t>(edge_.get_color().blue()) << "\t" << static_cast<uint32_t>(edge_.get_color().alpha()) << std::endl << std::endl; */
 	edge_.draw();
+
 	for (auto & rectangle_row : positions_) {
 		for (auto & rectangle : rectangle_row) {
 			rectangle->draw();
