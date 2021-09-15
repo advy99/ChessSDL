@@ -17,11 +17,16 @@ bool Knight :: is_valid_move(const Vector2D & new_position, const std::vector<st
 	
 	// if the position is valid, check if there is another piece
 	if (is_valid) {
-		is_valid = check_if_enemy_in_position(new_position, pieces);
+		is_valid = pieces[new_position.get_x()][new_position.get_y()] == nullptr || check_if_enemy_in_position(new_position, pieces);
 	} 
 
 	return is_valid;
 
+}
+
+
+bool Knight :: no_pieces_in_path(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
+	return true;
 }
 
 void Knight :: load(const LoaderParams * params){

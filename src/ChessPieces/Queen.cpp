@@ -17,7 +17,7 @@ bool Queen :: is_valid_move(const Vector2D & new_position, const std::vector<std
 
 	// if the position is valid, check if there is another piece
 	if (is_valid) {
-		is_valid = check_if_enemy_in_position(new_position, pieces);
+		is_valid = pieces[new_position.get_x()][new_position.get_y()] == nullptr || check_if_enemy_in_position(new_position, pieces);
 	} 
 
 

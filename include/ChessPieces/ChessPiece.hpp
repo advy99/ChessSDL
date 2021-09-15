@@ -5,11 +5,13 @@
 #include "SDLGameObject.hpp"
 #include <vector>
 #include <memory>
+#include "Figures/Rectangle.hpp"
 
 class ChessPiece : public SDLGameObject {
 	protected:
 		bool is_white_piece_;
 		Vector2D position_in_board_;
+
 	
 	public:
 		ChessPiece() = default;
@@ -23,11 +25,13 @@ class ChessPiece : public SDLGameObject {
 		virtual void load(const LoaderParams * params);
 
 		virtual bool is_valid_move(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const = 0;
+		virtual bool no_pieces_in_path(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const = 0;
 
 		bool check_if_enemy_in_position(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const;
 
 		bool is_white_piece() const;
 		Vector2D get_position_in_board() const;
+		void set_position_in_board(const Vector2D & pos);
 
 };
 
