@@ -43,6 +43,7 @@ class SDLGameObject : public GameObject{
 		Vector2D get_position() const;
 		int get_width() const;
 		int get_height() const;
+		void set_position (const Vector2D & pos);
 		Color get_color() const;
 		bool check_collision(const SDLGameObject & other) const;
 

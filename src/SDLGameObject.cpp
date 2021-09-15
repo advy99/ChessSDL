@@ -33,6 +33,10 @@ Vector2D SDLGameObject::get_position() const {
 	return position_;
 }
 
+void SDLGameObject :: set_position (const Vector2D & pos)  {
+	position_ = pos;
+}
+
 int SDLGameObject::get_width() const {
 	return width_;
 }
