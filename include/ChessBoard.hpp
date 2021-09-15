@@ -20,6 +20,11 @@ class ChessBoard : public SDLGameObject {
 		void create_board();
 		void initialize_pieces();
 
+		Vector2D calculate_board_position(const Vector2D & position) const;
+		Vector2D calculate_real_position(const Vector2D & position) const;
+
+		std::unique_ptr<Vector2D> piece_selected_ = nullptr;
+
 	public:
 		static const uint32_t NUM_ROWS ;
 		static const uint32_t NUM_COLS ;

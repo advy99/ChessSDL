@@ -77,20 +77,106 @@ void ChessBoard::draw(){
 void ChessBoard::update() {
 	SDLGameObject::update();
 
-	for (auto & piece_row : pieces_) {
-		for (auto & piece : piece_row){
-			if (piece != nullptr) {
-				piece->update();
+
+	Vector2D mouse_position = InputHandler::get_mouse_position();
+
+	if (piece_selected_ != nullptr) {
+
+		int x = piece_selected_->get_x();
+		int y = piece_selected_->get_y();
+		pieces_[x][y]->set_position(mouse_position - Vector2D(ChessBoard::POSITION_WIDTH / 2, ChessBoard::POSITION_HEIGHT / 2) );
+
+		// check if the user releases the button
+		if (!InputHandler::get_mouse_button_state(mouse_buttons::LEFT)) {
+			pieces_[x][y]->set_position(mouse_position);
+
+			Vector2D new_board_position = calculate_board_position( pieces_[x][y]->get_position());
+			if (pieces_[x][y]->is_valid_move(new_board_position, pieces_) && new_board_position.get_x() != -1) {
+				
+				pieces_[x][y]->set_position_in_board(new_board_position);
+				position_ = calculate_real_position(new_board_position);
+
+				pieces_[new_board_position.get_x()][new_board_position.get_y()] = std::move(pieces_[x][y]);
+				x = new_board_position.get_x();
+				y = new_board_position.get_y();
 			}
+
+			pieces_[x][y]->set_position(calculate_real_position(pieces_[x][y]->get_position_in_board()));
+			piece_selected_.reset(nullptr);
+
 		}
+	
+	} else { // if we dont have a selected piece
+		// if the left button is pressed, select this piece
+		if ( InputHandler::get_mouse_button_state(mouse_buttons::LEFT) ) {
+			Vector2D board_position = calculate_board_position( mouse_position );
+
+			if (board_position.get_x() != -1){
+				if (pieces_[board_position.get_x()][board_position.get_y()] != nullptr){
+					piece_selected_.reset(new Vector2D(board_position));
+				}
+
+			}
+
+		}
+
 	}
+
+
 }
+
+Vector2D ChessBoard :: calculate_board_position(const Vector2D & pos) const {
+
+	int result_x = 0;
+	int result_y = 0;
+
+	uint32_t x = positions_[0][0]->get_position().get_x() + ChessBoard::POSITION_WIDTH;
+	uint32_t y = positions_[0][0]->get_position().get_y() + ChessBoard::POSITION_HEIGHT;
+
+	while (x < static_cast<uint32_t>(pos.get_x()) && x < positions_[0][0]->get_position().get_x() + ChessBoard::POSITION_WIDTH * ChessBoard::NUM_ROWS) {
+		result_y++;
+		x += ChessBoard::POSITION_WIDTH;
+	}
+	while (y < static_cast<uint32_t>(pos.get_y()) && y < positions_[0][0]->get_position().get_y() + ChessBoard::POSITION_HEIGHT * ChessBoard::NUM_COLS) {
+		result_x++;
+		y += ChessBoard::POSITION_HEIGHT;
+	}
+
+	if (x > position_.get_x() + ChessBoard::POSITION_WIDTH * ChessBoard::NUM_ROWS ||
+		 y > position_.get_y() + ChessBoard::POSITION_HEIGHT * ChessBoard::NUM_COLS) {
+		result_x = -1;
+		result_y = -1;
+	}
+
+	return Vector2D(result_x, result_y);
+}
+
+
+
+Vector2D ChessBoard :: calculate_real_position(const Vector2D & position) const {
+
+	int result_x, result_y;
+
+	result_x = positions_[0][0]->get_position().get_x() + ChessBoard::POSITION_WIDTH * position.get_y();
+	result_y = positions_[0][0]->get_position().get_y() + ChessBoard::POSITION_HEIGHT * position.get_x();
+
+	return Vector2D(result_x, result_y);
+
+}
+
+
+
+
+
+
+
 
 void ChessBoard::load(const LoaderParams * params) {
 	SDLGameObject::load(params);
 
 	create_board();
 	initialize_pieces();
+	piece_selected_.reset(nullptr);
 }
 
 
@@ -157,7 +243,7 @@ void ChessBoard :: initialize_pieces(){
 		x_pos += POSITION_WIDTH;
 	}
 
-	is_white = false;
+	is_white = true;
 	y_pos = position_.get_y() + POSITION_HEIGHT / 4;
 	y_pos += 6 * POSITION_HEIGHT;
 	x_pos = position_.get_x() + POSITION_WIDTH / 4;
