@@ -24,21 +24,6 @@ void Rectangle :: load(const LoaderParams * params) {
 	SDLGameObject::load(params);	
 }
 
-int16_t Rectangle :: width() const noexcept {
-	return width_;
-}
-
-int16_t Rectangle :: height() const noexcept {
-	return height_;
-}
-
-void Rectangle :: set_width(const int16_t width) noexcept {
-	width_ = width;
-}
-
-void Rectangle :: set_height(const int16_t height) noexcept {
-	height_ = height;
-}
 
 
 std::unique_ptr<GameObject> RectangleCreator::create_game_object() const {

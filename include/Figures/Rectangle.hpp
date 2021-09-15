@@ -20,12 +20,6 @@ class Rectangle : public SDLGameObject {
 		virtual void update();
 		virtual void load (const LoaderParams * params);
 
-		int16_t width() const noexcept;
-		int16_t height() const noexcept;
-
-		void set_width(const int16_t width) noexcept;
-		void set_height(const int16_t height) noexcept;
-
 };
 
 class RectangleCreator : public BaseCreator {
