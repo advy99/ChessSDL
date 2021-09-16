@@ -19,6 +19,7 @@ class Pawn : public ChessPiece {
 
 		virtual bool is_valid_move(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const;
 		virtual bool no_pieces_in_path(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const;
+		virtual void set_position_in_board(const Vector2D & pos);
 };
 
 
