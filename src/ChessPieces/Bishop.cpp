@@ -31,16 +31,29 @@ bool Bishop :: is_valid_move(const Vector2D & new_position, const std::vector<st
 bool Bishop :: no_pieces_in_path(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
 	bool no_pieces = true;
 
-	std::pair<int32_t, int32_t> min_max_x = std::minmax(new_position.get_x(), position_in_board_.get_x());
-	std::pair<int32_t, int32_t> min_max_y = std::minmax(new_position.get_y(), position_in_board_.get_y());
+	int32_t distance_in_x = position_in_board_.get_x() - new_position.get_x();
+	int32_t distance_in_y = position_in_board_.get_y() - new_position.get_y();
 
-	int32_t i = min_max_x.first + 1;
-	int32_t j = min_max_y.first + 1;
-	while ( i < min_max_x.second && no_pieces) {
+	int32_t vertical_movement = -1;
+	int32_t horizontal_movement = -1;
+
+	if (distance_in_x < 0) {
+		// going up in the board
+		vertical_movement = 1;
+	}
+
+	if (distance_in_y < 0) {
+		// going left in the board
+		horizontal_movement = 1;
+	}
+
+	int32_t i = position_in_board_.get_x() + vertical_movement;
+	int32_t j = position_in_board_.get_y() + horizontal_movement;
+	while ( i != new_position.get_x() && no_pieces) {
 		no_pieces = pieces[i][j] == nullptr;
 
-		i++;
-		j++;
+		i += vertical_movement;
+		j += horizontal_movement;
 	}
 
 	return no_pieces;
