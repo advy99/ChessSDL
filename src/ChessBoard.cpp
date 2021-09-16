@@ -18,13 +18,13 @@ void ChessBoard :: create_board(){
 
 	int x_pos = position_.get_x() + POSITION_WIDTH / 4;
 	int y_pos = position_.get_y() + POSITION_HEIGHT / 4;
-	
+
 	bool position_is_white = true;
 	positions_.resize(NUM_ROWS);
 	for (uint32_t i = 0; i < NUM_ROWS; i++) {
 
 		for (uint32_t j = 0; j < NUM_COLS; j++) {
-			
+
 			if (position_is_white) {
 				actual_color = white;
 			} else {
@@ -47,7 +47,7 @@ void ChessBoard :: create_board(){
 	// multiply by for the edges
 	width_ = 2 * (POSITION_WIDTH / 4) + POSITION_WIDTH * NUM_ROWS;
 	height_ = 2 * (POSITION_HEIGHT / 4) + POSITION_HEIGHT * NUM_COLS;
-	
+
 
 
 	edge_ = Rectangle(position_.get_x(), position_.get_y(), width_, height_, edge_color_);
@@ -63,7 +63,7 @@ void ChessBoard::draw(){
 			rectangle->draw();
 		}
 	}
-		
+
 	for (auto & piece_row : pieces_) {
 		for (auto & piece : piece_row){
 			if (piece != nullptr) {
@@ -92,9 +92,11 @@ void ChessBoard::update() {
 
 			Vector2D new_board_position = calculate_board_position( pieces_[x][y]->get_position());
 			if (pieces_[x][y]->is_valid_move(new_board_position, pieces_) && new_board_position.get_x() != -1) {
-				
+
 				pieces_[x][y]->set_position_in_board(new_board_position);
 				position_ = calculate_real_position(new_board_position);
+
+				Game::player_turn_ended();
 
 				pieces_[new_board_position.get_x()][new_board_position.get_y()] = std::move(pieces_[x][y]);
 				x = new_board_position.get_x();
@@ -105,14 +107,15 @@ void ChessBoard::update() {
 			piece_selected_.reset(nullptr);
 
 		}
-	
+
 	} else { // if we dont have a selected piece
 		// if the left button is pressed, select this piece
 		if ( InputHandler::get_mouse_button_state(mouse_buttons::LEFT) ) {
 			Vector2D board_position = calculate_board_position( mouse_position );
 
-			if (board_position.get_x() != -1){
-				if (pieces_[board_position.get_x()][board_position.get_y()] != nullptr){
+			if (board_position.get_x() != -1 && pieces_[board_position.get_x()][board_position.get_y()] != nullptr){
+
+				if (Game::player_turn() == pieces_[board_position.get_x()][board_position.get_y()]->get_turn()){
 					piece_selected_.reset(new Vector2D(board_position));
 				}
 
@@ -184,52 +187,52 @@ void ChessBoard :: initialize_pieces(){
 
 	int x_pos = position_.get_x() + POSITION_WIDTH / 4;
 	int y_pos = position_.get_y() + POSITION_HEIGHT / 4;
-	bool is_white = false;
+	Turn player_turn = Turn::BLACK;
 	std::unique_ptr<LoaderParams> params;
-	
-	
+
+
 	pieces_.resize(NUM_ROWS);
 	for (auto & piece_row : pieces_) {
 		piece_row.resize(NUM_COLS);
 	}
-	
+
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "black_rook", "assets/black_rook.png", 1));
-	pieces_[0][0] = std::make_unique<Rook>(is_white, Vector2D(0, 0));
+	pieces_[0][0] = std::make_unique<Rook>(player_turn, Vector2D(0, 0));
 	pieces_[0][0]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "black_knight", "assets/black_knight.png", 1));
-	pieces_[0][1] = std::make_unique<Knight>(is_white, Vector2D(0, 1));
+	pieces_[0][1] = std::make_unique<Knight>(player_turn, Vector2D(0, 1));
 	pieces_[0][1]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "black_bishop", "assets/black_bishop.png", 1));
-	pieces_[0][2] = std::make_unique<Bishop>(is_white, Vector2D(0, 2));
+	pieces_[0][2] = std::make_unique<Bishop>(player_turn, Vector2D(0, 2));
 	pieces_[0][2]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "black_queen", "assets/black_queen.png", 1));
-	pieces_[0][3] = std::make_unique<Queen>(is_white, Vector2D(0, 3));
+	pieces_[0][3] = std::make_unique<Queen>(player_turn, Vector2D(0, 3));
 	pieces_[0][3]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "black_king", "assets/black_king.png", 1));
-	pieces_[0][4] = std::make_unique<King>(is_white, Vector2D(0, 4));
+	pieces_[0][4] = std::make_unique<King>(player_turn, Vector2D(0, 4));
 	pieces_[0][4]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "black_bishop", "assets/black_bishop.png", 1));
-	pieces_[0][5] = std::make_unique<Bishop>(is_white, Vector2D(0, 5));
+	pieces_[0][5] = std::make_unique<Bishop>(player_turn, Vector2D(0, 5));
 	pieces_[0][5]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "black_knight", "assets/black_knight.png", 1));
-	pieces_[0][6] = std::make_unique<Knight>(is_white, Vector2D(0, 6));
+	pieces_[0][6] = std::make_unique<Knight>(player_turn, Vector2D(0, 6));
 	pieces_[0][6]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "black_rook", "assets/black_rook.png", 1));
-	pieces_[0][7] = std::make_unique<Rook>(is_white, Vector2D(0, 7));
+	pieces_[0][7] = std::make_unique<Rook>(player_turn, Vector2D(0, 7));
 	pieces_[0][7]->load(params.get());
 	x_pos = position_.get_x() + POSITION_WIDTH / 4;
 
@@ -237,13 +240,13 @@ void ChessBoard :: initialize_pieces(){
 	for (uint32_t j = 0; j < NUM_COLS; j++) {
 
 		params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "black_pawn", "assets/black_pawn.png", 1));
-		pieces_[1][j].reset(new Pawn(is_white, Vector2D(1, j), false));
+		pieces_[1][j].reset(new Pawn(player_turn, Vector2D(1, j), false));
 		pieces_[1][j]->load(params.get());
 
 		x_pos += POSITION_WIDTH;
 	}
 
-	is_white = true;
+	player_turn = Turn::WHITE;
 	y_pos = position_.get_y() + POSITION_HEIGHT / 4;
 	y_pos += 6 * POSITION_HEIGHT;
 	x_pos = position_.get_x() + POSITION_WIDTH / 4;
@@ -253,7 +256,7 @@ void ChessBoard :: initialize_pieces(){
 	for (uint32_t j = 0; j < NUM_COLS; j++) {
 
 		params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "white_pawn", "assets/white_pawn.png", 1));
-		pieces_[6][j].reset(new Pawn(is_white, Vector2D(6, j), true));
+		pieces_[6][j].reset(new Pawn(player_turn, Vector2D(6, j), true));
 		pieces_[6][j]->load(params.get());
 
 		x_pos += POSITION_WIDTH;
@@ -263,42 +266,42 @@ void ChessBoard :: initialize_pieces(){
 	y_pos += POSITION_HEIGHT;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "white_rook", "assets/white_rook.png", 1));
-	pieces_[7][0] = std::make_unique<Rook>(is_white, Vector2D(7, 0));
+	pieces_[7][0] = std::make_unique<Rook>(player_turn, Vector2D(7, 0));
 	pieces_[7][0]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "white_knight", "assets/white_knight.png", 1));
-	pieces_[7][1] = std::make_unique<Knight>(is_white, Vector2D(7, 1));
+	pieces_[7][1] = std::make_unique<Knight>(player_turn, Vector2D(7, 1));
 	pieces_[7][1]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "white_bishop", "assets/white_bishop.png", 1));
-	pieces_[7][2] = std::make_unique<Bishop>(is_white, Vector2D(7, 2));
+	pieces_[7][2] = std::make_unique<Bishop>(player_turn, Vector2D(7, 2));
 	pieces_[7][2]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "white_queen", "assets/white_queen.png", 1));
-	pieces_[7][3] = std::make_unique<Queen>(is_white, Vector2D(7, 3));
+	pieces_[7][3] = std::make_unique<Queen>(player_turn, Vector2D(7, 3));
 	pieces_[7][3]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "white_king", "assets/white_king.png", 1));
-	pieces_[7][4] = std::make_unique<King>(is_white, Vector2D(7, 4));
+	pieces_[7][4] = std::make_unique<King>(player_turn, Vector2D(7, 4));
 	pieces_[7][4]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "white_bishop", "assets/white_bishop.png", 1));
-	pieces_[7][5] = std::make_unique<Bishop>(is_white, Vector2D(7, 5));
+	pieces_[7][5] = std::make_unique<Bishop>(player_turn, Vector2D(7, 5));
 	pieces_[7][5]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "white_knight", "assets/white_knight.png", 1));
-	pieces_[7][6] = std::make_unique<Knight>(is_white, Vector2D(7, 6));
+	pieces_[7][6] = std::make_unique<Knight>(player_turn, Vector2D(7, 6));
 	pieces_[7][6]->load(params.get());
 	x_pos += POSITION_WIDTH;
 
 	params.reset(new LoaderParams(x_pos, y_pos, POSITION_WIDTH, POSITION_HEIGHT, "white_rook", "assets/white_rook.png", 1));
-	pieces_[7][7] = std::make_unique<Rook>(is_white, Vector2D(7, 7));
+	pieces_[7][7] = std::make_unique<Rook>(player_turn, Vector2D(7, 7));
 	pieces_[7][7]->load(params.get());
 	x_pos = position_.get_x() + POSITION_WIDTH / 4;
 
@@ -324,6 +327,3 @@ const uint32_t ChessBoard :: NUM_ROWS = 8;
 const uint32_t ChessBoard :: NUM_COLS = 8;
 const uint32_t ChessBoard :: POSITION_WIDTH = 50;
 const uint32_t ChessBoard :: POSITION_HEIGHT = 50;
-
-
-
