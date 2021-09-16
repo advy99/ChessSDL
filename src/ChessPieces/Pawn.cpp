@@ -34,7 +34,7 @@ bool Pawn :: is_valid_move(const Vector2D & new_position, const std::vector<std:
 	// if the position is valid and the movement is vertical, check if there is another piece
 	if (is_valid && distance_in_y == 0) {
 		// the pawn cannot eat in vertical
-		is_valid = !check_if_enemy_in_position(new_position, pieces);
+		is_valid = no_pieces_in_path(new_position, pieces);
 	}
 
 	return is_valid;
@@ -42,7 +42,21 @@ bool Pawn :: is_valid_move(const Vector2D & new_position, const std::vector<std:
 }
 
 bool Pawn :: no_pieces_in_path(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
-	return true;
+	bool no_pieces = true;
+
+	int32_t distance_in_x = std::abs(position_in_board_.get_x() - new_position.get_x());
+
+	no_pieces = pieces[new_position.get_x()][new_position.get_y()] == nullptr;
+
+	if (no_pieces && distance_in_x != 1) {
+		if (goes_up_in_board_ ){
+			no_pieces = pieces[new_position.get_x() + 1][new_position.get_y()] == nullptr;
+		} else{
+			no_pieces = pieces[new_position.get_x() - 1][new_position.get_y()] == nullptr;
+		}
+	}
+
+	return no_pieces;
 }
 
 void Pawn :: load(const LoaderParams * params){
