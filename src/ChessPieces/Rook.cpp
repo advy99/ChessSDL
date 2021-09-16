@@ -16,7 +16,7 @@ bool Rook :: is_valid_move(const Vector2D & new_position, const std::vector<std:
 	// if the position is valid, check if there is another piece
 	if (is_valid) {
 		is_valid = pieces[new_position.get_x()][new_position.get_y()] == nullptr || check_if_enemy_in_position(new_position, pieces);
-	} 
+	}
 
 	if (is_valid) {
 		is_valid = no_pieces_in_path(new_position,pieces);
@@ -28,31 +28,28 @@ bool Rook :: is_valid_move(const Vector2D & new_position, const std::vector<std:
 
 
 bool Rook :: no_pieces_in_path(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
-	bool result = true;
 
+	std::pair<int32_t, int32_t> min_max_x = std::minmax(new_position.get_x(), position_in_board_.get_x());
+	std::pair<int32_t, int32_t> min_max_y = std::minmax(new_position.get_y(), position_in_board_.get_y());
 
-	int32_t distance_in_x = position_in_board_.get_x() - new_position.get_x();
-	int32_t distance_in_y = position_in_board_.get_y() - new_position.get_y();
+	bool no_pieces = true;
 
-	// if x distance is 0, we are in the same row, move is horizontal
-	if (distance_in_x == 0) {
-		// we are moving to the right
-		if (distance_in_y < 0) {
-			
-		} else {
+	int32_t i = min_max_x.first + 1;
+	while ( i < min_max_x.second && no_pieces) {
+		no_pieces = pieces[i][position_in_board_.get_y()] == nullptr;
 
-		}
+		i++;
+	}
 
-	} else {
-		if ( distance_in_x < 0) {
+	i = min_max_y.first + 1;
+	while ( i < min_max_y.second && no_pieces) {
+		no_pieces = pieces[position_in_board_.get_x()][i] == nullptr;
 
-		} else {
-
-		}	
+		i++;
 	}
 
 
-	return result;
+	return no_pieces;
 }
 
 void Rook :: load(const LoaderParams * params){
@@ -60,11 +57,9 @@ void Rook :: load(const LoaderParams * params){
 }
 
 void Rook :: update() {
-	ChessPiece::update();	
+	ChessPiece::update();
 }
 
 void Rook :: draw() {
 	ChessPiece::draw();
 }
-
-
