@@ -12,7 +12,7 @@ class ChessPiece : public SDLGameObject {
 		bool is_white_piece_;
 		Vector2D position_in_board_;
 
-	
+
 	public:
 		ChessPiece() = default;
 		ChessPiece(const bool is_white_piece, const Vector2D & position);
@@ -31,7 +31,7 @@ class ChessPiece : public SDLGameObject {
 
 		bool is_white_piece() const;
 		Vector2D get_position_in_board() const;
-		void set_position_in_board(const Vector2D & pos);
+		virtual void set_position_in_board(const Vector2D & pos);
 
 };
 
