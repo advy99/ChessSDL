@@ -19,12 +19,37 @@ bool King :: is_valid_move(const Vector2D & new_position, const std::vector<std:
 		is_valid = pieces[new_position.get_x()][new_position.get_y()] == nullptr || check_if_enemy_in_position(new_position, pieces);
 	}
 
+	if (is_valid) {
+		is_valid = no_pieces_in_path(new_position,pieces);
+	}
+
 	return is_valid;
 
 }
 
 bool King :: no_pieces_in_path(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
-	return pieces[new_position.get_x()][new_position.get_y()] == nullptr;
+	bool no_pieces = true;
+
+	// if an enemy piece can move to these position is not a valid position
+	auto it_row = pieces.begin();
+	while ( it_row != pieces.end() && no_pieces) {
+
+		auto it = it_row->begin();
+		while ( it != it_row->end() && no_pieces) {
+			if ( (*it) != nullptr ){
+				if (turn_ != (*it)->get_turn() ){
+					no_pieces = !(*it)->is_valid_move(new_position, pieces);
+				}
+			}
+
+			++it;
+		}
+
+		++it_row;
+	}
+
+	return no_pieces;
+
 }
 
 void King :: load(const LoaderParams * params){
