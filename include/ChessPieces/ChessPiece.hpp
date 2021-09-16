@@ -6,16 +6,18 @@
 #include <vector>
 #include <memory>
 #include "Figures/Rectangle.hpp"
+#include "Turn.hpp"
+
 
 class ChessPiece : public SDLGameObject {
 	protected:
-		bool is_white_piece_;
+		Turn turn_;
 		Vector2D position_in_board_;
 
 
 	public:
 		ChessPiece() = default;
-		ChessPiece(const bool is_white_piece, const Vector2D & position);
+		ChessPiece(const Turn is_white_piece, const Vector2D & position);
 
 		virtual ~ChessPiece() {};
 		virtual void draw();
@@ -32,6 +34,7 @@ class ChessPiece : public SDLGameObject {
 		bool is_white_piece() const;
 		Vector2D get_position_in_board() const;
 		virtual void set_position_in_board(const Vector2D & pos);
+		Turn get_turn() const;
 
 };
 

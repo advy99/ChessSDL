@@ -1,7 +1,7 @@
 #include "ChessPieces/Bishop.hpp"
 
 
-Bishop :: Bishop(const bool is_white, const Vector2D & position)
+Bishop :: Bishop(const Turn is_white, const Vector2D & position)
 				:ChessPiece(is_white, position){
 }
 

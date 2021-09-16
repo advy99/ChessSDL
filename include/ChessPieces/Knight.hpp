@@ -9,7 +9,7 @@ class Knight : public ChessPiece {
 	public:
 
 		Knight() = default;
-		Knight(const bool is_white, const Vector2D & position);
+		Knight(const Turn is_white, const Vector2D & position);
 		virtual ~Knight(){};
 		virtual void draw();
 		virtual void update();

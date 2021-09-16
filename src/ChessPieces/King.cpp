@@ -1,6 +1,6 @@
 #include "ChessPieces/King.hpp"
 
-King :: King(const bool is_white, const Vector2D & position)
+King :: King(const Turn is_white, const Vector2D & position)
 				:ChessPiece(is_white, position){
 }
 

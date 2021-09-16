@@ -9,7 +9,7 @@ class Bishop : public ChessPiece {
 	public:
 
 		Bishop() = default;
-		Bishop(const bool is_white, const Vector2D & position);
+		Bishop(const Turn is_white, const Vector2D & position);
 		virtual ~Bishop(){};
 		virtual void draw();
 		virtual void update();

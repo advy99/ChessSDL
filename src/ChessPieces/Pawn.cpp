@@ -1,6 +1,6 @@
 #include "ChessPieces/Pawn.hpp"
 
-Pawn :: Pawn(const bool is_white, const Vector2D & position, const bool goes_up_in_board)
+Pawn :: Pawn(const Turn is_white, const Vector2D & position, const bool goes_up_in_board)
 				:ChessPiece(is_white, position), goes_up_in_board_(goes_up_in_board)
 {
 }

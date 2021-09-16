@@ -11,7 +11,7 @@ class Pawn : public ChessPiece {
 	public:
 
 		Pawn() = default;
-		Pawn(const bool is_white, const Vector2D & position, const bool goes_up_in_board);
+		Pawn(const Turn is_white, const Vector2D & position, const bool goes_up_in_board);
 		virtual ~Pawn(){};
 		virtual void draw();
 		virtual void update();

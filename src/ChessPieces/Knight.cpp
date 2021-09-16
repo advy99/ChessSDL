@@ -1,6 +1,6 @@
 #include "ChessPieces/Knight.hpp"
 
-Knight :: Knight(const bool is_white, const Vector2D & position)
+Knight :: Knight(const Turn is_white, const Vector2D & position)
 				:ChessPiece(is_white, position){
 }
 
@@ -12,13 +12,13 @@ bool Knight :: is_valid_move(const Vector2D & new_position, const std::vector<st
 
 	is_valid = (distance_in_x == 2 && distance_in_y == 1) ||
 				  (distance_in_x == 1 && distance_in_y == 2);
-	
 
-	
+
+
 	// if the position is valid, check if there is another piece
 	if (is_valid) {
 		is_valid = pieces[new_position.get_x()][new_position.get_y()] == nullptr || check_if_enemy_in_position(new_position, pieces);
-	} 
+	}
 
 	return is_valid;
 
@@ -34,11 +34,9 @@ void Knight :: load(const LoaderParams * params){
 }
 
 void Knight :: update() {
-	ChessPiece::update();	
+	ChessPiece::update();
 }
 
 void Knight :: draw() {
 	ChessPiece::draw();
 }
-
-

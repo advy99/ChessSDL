@@ -2,12 +2,12 @@
 #include "InputHandler.hpp"
 #include "ChessBoard.hpp"
 
-ChessPiece :: ChessPiece(const bool is_white_piece, const Vector2D & position)
-					:is_white_piece_(is_white_piece), position_in_board_(position)
+ChessPiece :: ChessPiece(const Turn is_white_piece, const Vector2D & position)
+					:turn_(is_white_piece), position_in_board_(position)
 {}
 
 bool ChessPiece :: is_white_piece() const{
-	return is_white_piece_;
+	return turn_ == Turn::WHITE;
 }
 
 Vector2D ChessPiece :: get_position_in_board() const {
@@ -18,17 +18,20 @@ void ChessPiece :: set_position_in_board(const Vector2D & pos) {
 	position_in_board_ = pos;
 }
 
-bool ChessPiece :: check_if_enemy_in_position(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const { 
+bool ChessPiece :: check_if_enemy_in_position(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
 	bool enemy_in_position = false;
 
 	// if there is another piece, the position is valid if is an enemy piece
 	if (pieces[new_position.get_x()][new_position.get_y()] != nullptr) {
-		enemy_in_position = is_white_piece_ != pieces[new_position.get_x()][new_position.get_y()]->is_white_piece();
+		enemy_in_position = is_white_piece() != pieces[new_position.get_x()][new_position.get_y()]->is_white_piece();
 	}
-	
+
 	return enemy_in_position;
 }
 
+Turn ChessPiece :: get_turn() const {
+	return turn_;
+}
 
 void ChessPiece :: load(const LoaderParams * params) {
 	SDLGameObject::load(params);
@@ -42,6 +45,3 @@ void ChessPiece :: update(){
 void ChessPiece :: draw() {
 	SDLGameObject::draw();
 }
-
-
-

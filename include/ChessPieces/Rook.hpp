@@ -9,7 +9,7 @@ class Rook : public ChessPiece {
 	public:
 
 		Rook() = default;
-		Rook(const bool is_white, const Vector2D & position);
+		Rook(const Turn is_white, const Vector2D & position);
 		virtual ~Rook(){};
 		virtual void draw();
 		virtual void update();

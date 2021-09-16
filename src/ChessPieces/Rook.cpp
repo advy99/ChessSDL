@@ -1,6 +1,6 @@
 #include "ChessPieces/Rook.hpp"
 
-Rook :: Rook(const bool is_white, const Vector2D & position)
+Rook :: Rook(const Turn is_white, const Vector2D & position)
 				:ChessPiece(is_white, position){
 }
 

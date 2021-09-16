@@ -9,7 +9,7 @@ class Queen : public ChessPiece {
 	public:
 
 		Queen() = default;
-		Queen(const bool is_white, const Vector2D & position);
+		Queen(const Turn is_white, const Vector2D & position);
 		virtual ~Queen(){};
 		virtual void draw();
 		virtual void update();

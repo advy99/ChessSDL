@@ -9,7 +9,7 @@ class King : public ChessPiece {
 	public:
 
 		King() = default;
-		King(const bool is_white, const Vector2D & position);
+		King(const Turn is_white, const Vector2D & position);
 		virtual ~King(){};
 		virtual void draw();
 		virtual void update();
