@@ -112,6 +112,18 @@ void Game :: pop_state() {
 	game_state_machine_.pop();
 }
 
+Turn Game :: player_turn() {
+	return player_turn_;
+}
+
+void Game :: player_turn_ended() {
+	if (player_turn_ == Turn::WHITE) {
+		player_turn_ = Turn::BLACK;
+	} else {
+		player_turn_ = Turn::WHITE;
+	}
+}
+
 
 bool Game :: running_ = false;
 std::unique_ptr<SDL_Window, SDL_WindowDeleter> Game :: window_ = nullptr;
@@ -122,5 +134,4 @@ uint32_t Game :: width_;
 uint32_t Game :: height_;
 std::unique_ptr<GameState> Game :: next_state_ = nullptr;
 bool Game :: changing_game_state_ = false;
-
-// std::vector<std::unique_ptr<GameObject> > Game :: objects_;
+Turn Game :: player_turn_ = Turn::WHITE;

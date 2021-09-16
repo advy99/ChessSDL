@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 
+#include "Turn.hpp"
 #include "InputHandler.hpp"
 #include "GameStateMachine.hpp"
 #include "GameObjectFactory.hpp"
@@ -28,9 +29,8 @@ struct SDL_RendererDeleter {
 };
 
 
-
 class Game {
-	private: 
+	private:
 		static bool running_;
 
 		static std::unique_ptr<SDL_Window, SDL_WindowDeleter> window_;
@@ -45,7 +45,7 @@ class Game {
 		static std::unique_ptr<GameState> next_state_;
 		static bool changing_game_state_;
 
-		// static std::vector< std::unique_ptr<GameObject> > objects_;
+		static Turn player_turn_;
 
 	public:
 
@@ -54,7 +54,7 @@ class Game {
 
 
 		static void render();
-		
+
 		static void draw();
 
 		static void update();
@@ -73,6 +73,9 @@ class Game {
 
 		static uint32_t width() ;
 		static uint32_t height() ;
+
+		static Turn player_turn();
+		static void player_turn_ended();
 
 };
 
