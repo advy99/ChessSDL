@@ -12,28 +12,29 @@ bool King :: is_valid_move(const Vector2D & new_position, const std::vector<std:
 	uint32_t distance_in_y = std::abs(position_in_board_.get_y() - new_position.get_y());
 
 	is_valid = distance_in_x <= 1 && distance_in_y <= 1;
-	
+
 
 	// if the position is valid, check if there is another piece
 	if (is_valid) {
 		is_valid = pieces[new_position.get_x()][new_position.get_y()] == nullptr || check_if_enemy_in_position(new_position, pieces);
-	} 
+	}
 
 	return is_valid;
 
 }
 
+bool King :: no_pieces_in_path(const Vector2D & new_position, const std::vector<std::vector<std::unique_ptr<ChessPiece> > > & pieces) const {
+	return pieces[new_position.get_x()][new_position.get_y()] == nullptr;
+}
 
 void King :: load(const LoaderParams * params){
 	ChessPiece::load(params);
 }
 
 void King :: update() {
-	ChessPiece::update();	
+	ChessPiece::update();
 }
 
 void King :: draw() {
 	ChessPiece::draw();
 }
-
-
